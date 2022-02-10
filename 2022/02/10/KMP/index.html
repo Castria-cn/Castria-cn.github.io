@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>KMP字符串匹配算法 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="字符串的模式匹配是以下的一种常见问题：给定字符串$s$(主串)和$t$(模式串)$(|s|&#x3D;n,|t|&#x3D;m,m\leq n)$，求$t$在$s$中第一次出现的位置。如: $s&#x3D;”ababcabcacbab”$$t&#x3D;\ \ \ \ \ \ \ \ \ \ “abcac”$则$t$首次出现在对齐处,即主串的第6位。很容易想到一种枚举的方法(Brute Force">
+<meta property="og:type" content="article">
+<meta property="og:title" content="KMP字符串匹配算法">
+<meta property="og:url" content="http://example.com/2022/02/10/KMP/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="字符串的模式匹配是以下的一种常见问题：给定字符串$s$(主串)和$t$(模式串)$(|s|&#x3D;n,|t|&#x3D;m,m\leq n)$，求$t$在$s$中第一次出现的位置。如: $s&#x3D;”ababcabcacbab”$$t&#x3D;\ \ \ \ \ \ \ \ \ \ “abcac”$则$t$首次出现在对齐处,即主串的第6位。很容易想到一种枚举的方法(Brute Force">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/763669a957f64d6d8b256c7d288f13f0.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/70d778c609364ecaae32cf7213792527.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/846b5023c2e341ddb9796592aa20f65d.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/c673946e0fdf4f5bbc05b28c1ba4199f.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/b71335b56a954efa90537d61f74764e9.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="article:published_time" content="2022-02-10T15:20:51.000Z">
+<meta property="article:modified_time" content="2022-02-10T15:29:18.173Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/763669a957f64d6d8b256c7d288f13f0.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-KMP" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/02/10/KMP/" class="article-date">
+  <time class="dt-published" datetime="2022-02-10T15:20:51.000Z" itemprop="datePublished">2022-02-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      KMP字符串匹配算法
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>字符串的模式匹配是以下的一种常见问题：给定字符串$s$(主串)和$t$(模式串)$(|s|&#x3D;n,|t|&#x3D;m,m\leq n)$，求$t$在$s$中第一次出现的位置。如:</p>
+<p>$s&#x3D;”ababcabcacbab”$<br>$t&#x3D;\ \ \ \ \ \ \ \ \ \ “abcac”$<br>则$t$首次出现在对齐处,即主串的第6位。很容易想到一种枚举的方法(Brute Force)：</p>
+<h2 id="1-BF算法-Brute-Force"><a href="#1-BF算法-Brute-Force" class="headerlink" title="1.BF算法(Brute Force)"></a>1.BF算法(Brute Force)</h2><p>BF算法即从$i&#x3D;1$开始，$i$至多到$n-m+1$，每次将模式串$t$的开始与$s$的第$i$位对齐并进行对照，即比较$s[i…i+m-1]$与$t[1…m]$是否相等。显然，这种算法的最差复杂度当$t$每次都在最后一位与$s$失配时出现，总比较次数$&#x3D;m(n-m+1)&#x3D;O(nm)$.</p>
+<h2 id="2-KMP算法"><a href="#2-KMP算法" class="headerlink" title="2.KMP算法"></a>2.KMP算法</h2><p>KMP算法通过计算模式串$t$的一些额外信息$(next$数组$)$来避免不必要的必定失配的情况，从而优化时间复杂度。它由Knuth、Morris和Pratt同时提出，故得名KMP算法。</p>
+<p>现考虑BF算法在匹配失配时的情况。设$s$与$t$在$s[i],t[j]$处失配，即：<br>$s[i-j+1…i-1]&#x3D;t[1..j-1]$<br>$s[i]\neq t[j]$<br>按照BF算法，失配后应将$t$右移一位，使得$s[i-j+2]与t[1]$对齐进行下一次匹配。此时，若对于模式串$t$有</p>
+<p>$t[1…j-2] \neq t[2…j-1]\ \ \ \  \ \ \ \ \ \ \ \ \ \ (1)$，</p>
+<p>那么就有</p>
+<p>$t[1…j-2] \neq t[2…j-1] &#x3D; s[i-j+2…i-1]$,</p>
+<p>因此</p>
+<p>$t[1…j-2] \neq s[i-j+2…i-1]$（可参照下图，相同颜色表示串相同）<br><img src="https://img-blog.csdnimg.cn/763669a957f64d6d8b256c7d288f13f0.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"></p>
+<p>图中$s$中橙色框一定与$t_2$（下一次匹配）中的绿框不相等(式$(1)$)，因此下一次匹配一定会在模式串的$1…j-2$处失败$(*)$。<br>同理，当有$t[1…j-3] \neq t[3…j-1]$时，下下次匹配一定会失败。那么什么时候匹配有可能成功呢？我们需要找到从大到小第一个出现的值$k$,使得$t[1…k] \neq t[j-k…j-1]$而$t[1…k-1]&#x3D;t[j-k+1…j-1]$，即子串$t[1…j-1]$的最长的相同的前后缀长度+1。</p>
+<p>如：$t&#x3D;”abaabcac”$<br>当$j&#x3D;6$时，$t[1…5]$最长相同的前后缀为$”ab”$长为$2$，因此此时$k$值为$3$.</p>
+<p>当我们能求出这个$k$的值后，我们就可以推断出下一次可能匹配成功的位置，见下图。<br><img src="https://img-blog.csdnimg.cn/70d778c609364ecaae32cf7213792527.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>我们已经断定跳过的几次匹配一定会失配，因此我们可以直接将$t[1]$与$s[i-k+1]$对齐,而由相同前后缀的性质，标红框的部分完全相同，因此还可以跳过这一次匹配的$1…k-1$部分，直接将$s[i]$与$t[k]$进行比对。</p>
+<p>通过上面的分析，我们可以总结出$k$的一些性质：<br>$(1)k$只与模式串$t$自己有关，而且是一个关于下标$j$的函数，即$k&#x3D;next(j);$<br>$(2)0 \leq next(j) \leq j-1$,它表明$t[1…j]$有长为$next(j)-1$的相同前后缀$;$<br>$(3)$当不存在相同前后缀时,$next(j)&#x3D;1;$<br>$(4)$定义$next(1)&#x3D;0.$</p>
+<h2 id="3-next数组的求法"><a href="#3-next数组的求法" class="headerlink" title="3.next数组的求法"></a>3.next数组的求法</h2><p>$next$数组可通过归纳求得。以下是具体分析:<br>$(1)next[1]&#x3D;0;$<br>$(2)$假设$next[1],next[2],…,next[j]$均已知，现求出$next[j+1].$<br>设$next[j]&#x3D;k,$这说明$t[1…j-1]$有长为$k-1$的相同前后缀。</p>
+<p>①当$t[k]&#x3D;t[j]$,那么$t[1…j]$便有长为$k$的相同前后缀。那么$t[1…j]$能否有比$k$更长的相同前后缀呢？答案是不能。如图:<br><img src="https://img-blog.csdnimg.cn/846b5023c2e341ddb9796592aa20f65d.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>红框圈起来的部分代表$next(j)$所表示的相同前后缀；紫色框表示$t[k]&#x3D;t[j]$所带来的$t[1…j]$的长为$k$的前后缀。左边的紫框一定不等于绿框，否则$next(j)$便可取到$k+1,$因此两个黄框一定不相等，因为它们前$k$位一个是紫框，一个是绿框。因此当$t[k]&#x3D;t[j],next(j+1)&#x3D;k+1&#x3D;next(j)+1$.</p>
+<p>②当$t[k] \neq t[j]$，此时视为模式串$t$与自身匹配，而且$t[k]$和$t[j]$失配。由①可知，只能寻找比$k$更短的相同前后缀。<img src="https://img-blog.csdnimg.cn/c673946e0fdf4f5bbc05b28c1ba4199f.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"></p>
+<p>此时将下面的串不断向右移动，判断重叠部分（即绿框）是否相等，找出最长的相同前后缀。由KMP$(*)$部分可知，可以直接将下面的串的第$k’&#x3D;next[k]$与上面串的第$j$位比较(否则一定会失配)。如果移动后$t[j]&#x3D;t[k’],$那么便有$next(j+1)&#x3D;k’+1&#x3D;next(k)+1&#x3D;next(next(j))+1;$如若不然，不断令$k^{(n)}&#x3D;next(k^{(n-1)})$,直到：<br>$(a)$$t[j]&#x3D;t[k^{(n)}]$，则$next(j+1)&#x3D;k^{(n)}+1.$<br>$(b)$直至迭代到$k^{(n)}&#x3D;1$时，$t[j] \neq t[k^{(n)}]$，即上下串仅一位重叠仍不相等(下图)，说明没有公共前后缀，此时令$next(j+1)&#x3D;1.$<br><img src="https://img-blog.csdnimg.cn/b71335b56a954efa90537d61f74764e9.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"></p>
+<h2 id="4-代码实现"><a href="#4-代码实现" class="headerlink" title="4.代码实现"></a>4.代码实现</h2><p>-求$next$数组</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">GetNext</span><span class="params">(<span class="type">char</span> *t,<span class="type">int</span> *next)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">int</span> i = <span class="number">1</span>,j = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span>(i&lt;m)<span class="comment">//m为模式串长度</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(j == <span class="number">0</span> || t[i] == t[j])</span><br><span class="line">		&#123;</span><br><span class="line">			i++;</span><br><span class="line">			j++;</span><br><span class="line">			next[i] = j;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> j = next[j];</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>代码中$i$表示当前要求的$next$下标，$j$表示下面的串的第$j$位与上面的串(上一部分图解)尝试进行匹配。<br>$j &#x3D;&#x3D; 0$表示当迭代到最后仍然没有公共前后缀的情况，此时$next[++i]&#x3D;1.$<br>$t[i]&#x3D;t[j]$说明当前匹配成功，记录下$next[++i]&#x3D;j+1$，否则迭代$j$为$next[j]。$</p>
+<p>-KMP</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">KMP</span><span class="params">(<span class="type">char</span> *s,<span class="type">char</span> *t)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">int</span> i = <span class="number">1</span>,j = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span>(i&lt;=n &amp;&amp; j&lt;=m)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(j == <span class="number">0</span> || s[i] == t[j])</span><br><span class="line">		&#123;</span><br><span class="line">			i++;</span><br><span class="line">			j++;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> j = next[j];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(j&gt;m) <span class="keyword">return</span> i-m;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>与求$next$数组很相似，当$j&#x3D;0$时，说明$s[i]$与$t[1]$不相等，此时模式串右移一位将$j$置为$1$，同时$i++$使得模式串从头开始与主串下一位匹配。<br>当$s[i]&#x3D;&#x3D;t[j]$时，说明当前位匹配成功，$i,j$均自增。否则$j$迭代为$next[j]$.<br>当$j&gt;m$时，说明模式串匹配完成，匹配成功位置为$(i-1)-m+1&#x3D;i-m$（由于$i$在匹配成功时自增了$1$，需要减掉）</p>
+<p>KMP算法的复杂度为$O(n+m)&#x3D;O(n).$</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/02/10/KMP/" data-id="ckzh510910002i8ug9cv5fvj6" data-title="KMP字符串匹配算法" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/02/10/SkipList/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          跳表的C++实现
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/02/10/HITDS2021/">哈工大2021年秋季学期数据结构期末试题</a>
+          </li>
+        
+          <li>
+            <a href="/2022/02/10/SkipList/">跳表的C++实现</a>
+          </li>
+        
+          <li>
+            <a href="/2022/02/10/KMP/">KMP字符串匹配算法</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

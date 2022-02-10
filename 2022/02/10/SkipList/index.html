@@ -4,15 +4,24 @@
   <meta charset="utf-8">
   
   
-  <title>Hexo</title>
+  <title>跳表的C++实现 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/index.html">
+  <meta name="description" content="跳表(Skip List)是在链表基础上进行改进的一种有序的数据结构，它为了便于查找，在插入过程中随机地将一些元素提升为高度为1~r的索引，以此来加快之后的操作。索引可以分为多层，一般而言，层数越高的索引个数越少。下面的图是一个跳表示例（隐去表头，上面的为高层） 为了方便下面对代码实现的说明，先给出各数据类型的定义。 1234567891011121314151617181920212223242">
+<meta property="og:type" content="article">
+<meta property="og:title" content="跳表的C++实现">
+<meta property="og:url" content="http://example.com/2022/02/10/SkipList/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="跳表(Skip List)是在链表基础上进行改进的一种有序的数据结构，它为了便于查找，在插入过程中随机地将一些元素提升为高度为1~r的索引，以此来加快之后的操作。索引可以分为多层，一般而言，层数越高的索引个数越少。下面的图是一个跳表示例（隐去表头，上面的为高层） 为了方便下面对代码实现的说明，先给出各数据类型的定义。 1234567891011121314151617181920212223242">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/074088ed6dc74399af523e9cc67666e3.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/d8fb1e7316ef42c981548d6f03b8ecae.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/8f8e135324124cd2afee7601f6fa5190.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/ff422c587b7449e79c287fb67714b7db.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_9,color_FFFFFF,t_70,g_se,x_16">
+<meta property="article:published_time" content="2022-02-10T15:20:51.000Z">
+<meta property="article:modified_time" content="2022-02-10T15:29:33.647Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/074088ed6dc74399af523e9cc67666e3.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -69,170 +78,7 @@
 </header>
 
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-HITDS2021" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/02/10/HITDS2021/" class="article-date">
-  <time class="dt-published" datetime="2022-02-10T15:20:51.000Z" itemprop="datePublished">2022-02-10</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/02/10/HITDS2021/">哈工大2021年秋季学期数据结构期末试题</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>因为考完试没有收演草纸，所以题中数据与考试差距不大。选项顺序可能略有差异；选择第5题希尔排序的序列数据是后编的；简答第3题B-树的插入序列顺序可能不同，但是考察的点是一样的。其他题的数据基本可以保证和原题一样。</p>
-<h2 id="一、选择题"><a href="#一、选择题" class="headerlink" title="一、选择题"></a>一、选择题</h2><p>$1$.以下代码的时间复杂度是</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="type">int</span> k=<span class="number">1</span>;k&lt;=n;k*=<span class="number">2</span>)</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">1</span>;j&lt;=n;j++)</span><br><span class="line">		count++;</span><br></pre></td></tr></table></figure>
-<p>$A.O(n)\ \ \ \ \ \ \ B.O(nlogn)\ \ \ \ \ \ \ C.O(n^2)\ \ \ \ \ \ \ D.O(logn)$<br>$2$.一棵二叉树的先序序列是$a,b,c,d$，有多少种可能的形态？<br>$A.13\ \ \ \ \ \ \ B.14\ \ \ \ \ \ \ C.15\ \ \ \ \ \ \ D.16$<br>$3$.以下哪种方式可以用于求取图的所有极大连通子图？<br>$A$.广度优先搜索 $B$.关键路径 $C$.最短路 $D$.最小生成树<br>$4$.给定以下活动，缩短哪个活动的时间可以加快工程进度？</p>
-<table>
-<thead>
-<tr>
-<th>活动名</th>
-<th>持续时间</th>
-<th>前置要求</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>A</td>
-<td>6</td>
-<td>-</td>
-</tr>
-<tr>
-<td>B</td>
-<td>4</td>
-<td>-</td>
-</tr>
-<tr>
-<td>C</td>
-<td>3</td>
-<td>A</td>
-</tr>
-<tr>
-<td>D</td>
-<td>4</td>
-<td>B</td>
-</tr>
-<tr>
-<td>E</td>
-<td>3</td>
-<td>B</td>
-</tr>
-<tr>
-<td>F</td>
-<td>10</td>
-<td>-</td>
-</tr>
-<tr>
-<td>G</td>
-<td>3</td>
-<td>E,F</td>
-</tr>
-<tr>
-<td>H</td>
-<td>2</td>
-<td>C,D</td>
-</tr>
-<tr>
-<td>$A.A$活动$\ \ \ \ \ \ \ B.C$活动 $\ \ \ \ \ \ \ C.F$活动 $\ \ \ \ \ \ \ D.H$活动</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>$5$.给定一趟希尔排序之后的序列$1,2,9,3,4,12,7,10,20$,那么这趟希尔排序的增量可能是()</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>$A.3\ \ \ \ \ \ \ B.4\ \ \ \ \ \ \ C.5\ \ \ \ \ \ \ D.6$</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>*<em>这道题数据和原题不一样，但答案一样</em></td>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<h2 id="二、填空题"><a href="#二、填空题" class="headerlink" title="二、填空题"></a>二、填空题</h2><p>$1$.设$1,2,…,n$先后入栈，出栈序列为$a_1,a_2,…,a_n$，现有$a_2&#x3D;3$，那么$a_3$的取值有_______种可能。<br>$2$.对下面的序列进行两趟基数排序的序列是__________________<br>$110,119,007,911,114,120,122$<br>$3$.中序线索二叉树中，一个非根的无右子树的节点的右指针指向_________<br>$4$.将$1…7$依次插入AVL树中，插入后树中有_____个平衡因子为$0$的<em>分支</em>节点。<br>$5$.对下图以$a$为源点应用Dijkstra算法得到的目标顶点序列依次为$a,b,c,$_______<br><img src="https://img-blog.csdnimg.cn/40c78eae4b074dd7b1ad8ce5ee24af67.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAQ2FzdHJpYQ==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"></p>
-<h2 id="三、简答题"><a href="#三、简答题" class="headerlink" title="三、简答题"></a>三、简答题</h2><p>$1.$现有长为$3,6,7,8,12,13,16$的钢筋想要合成为长为$65$的钢筋，每次合成花费两段长度之和的金币，有$200$金币的预算。<br>$(1)$请给出花费最少的方案并进行说明。<br>$(2)$最多能节省多少金币？<br>$2.$简述Prim算法的思想，并且根据下图完成算法运行的表格。<br><img src="https://img-blog.csdnimg.cn/bd509c68b0ca40078daa0e3f3679efae.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAQ2FzdHJpYQ==,size_15,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"></p>
-<table>
-<thead>
-<tr>
-<th>V</th>
-<th>S-V</th>
-<th>下一步考察的边</th>
-<th>最近邻</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>{1}</td>
-<td>{2,3,4,5,6}</td>
-<td>(1,2):6,(1,4):5,(1,3):1</td>
-<td>_</td>
-</tr>
-<tr>
-<td>_</td>
-<td>_</td>
-<td>_</td>
-<td>_</td>
-</tr>
-<tr>
-<td>_</td>
-<td>_</td>
-<td>_</td>
-<td>_</td>
-</tr>
-<tr>
-<td>_</td>
-<td>_</td>
-<td>_</td>
-<td>_</td>
-</tr>
-<tr>
-<td>_</td>
-<td>_</td>
-<td>_</td>
-<td>_</td>
-</tr>
-<tr>
-<td>_</td>
-<td>_</td>
-<td>_</td>
-<td>_</td>
-</tr>
-</tbody></table>
-<p>$3.$给出以下序列：$12,68,21,40,33,25,59,51$依次插入B-树中，最后删除$40$，请依次画出每次插入及最后删除之后B-树的形态。</p>
-<h2 id="四、算法设计题"><a href="#四、算法设计题" class="headerlink" title="四、算法设计题"></a>四、算法设计题</h2><p>$1.$设计算法，使时间复杂度尽可能低，判断两个数组中的元素是否完全相同。同时分析时间复杂度、空间复杂度。<br>$2.$一个无重复元素序列的最大二叉树的根节点是序列中最大的元素，左右子树分别是最大元素两边序列的最大二叉树。给出根据一个序列构造最大二叉树的算法，并分析其在最好、最坏情况下的时间复杂度和空间复杂度。<br>$3.$给定一个有向无环图，将它重新编号，使得它的邻接矩阵是一个上三角矩阵。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/10/HITDS2021/" data-id="ckzh5108r0000i8ug5lmnfwks" data-title="哈工大2021年秋季学期数据结构期末试题" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-SkipList" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-SkipList" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2022/02/10/SkipList/" class="article-date">
   <time class="dt-published" datetime="2022-02-10T15:20:51.000Z" itemprop="datePublished">2022-02-10</time>
@@ -245,8 +91,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/02/10/SkipList/">跳表的C++实现</a>
+    <h1 class="p-name article-title" itemprop="headline name">
+      跳表的C++实现
     </h1>
   
 
@@ -285,74 +131,28 @@
     </footer>
   </div>
   
-</article>
-
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-KMP" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/02/10/KMP/" class="article-date">
-  <time class="dt-published" datetime="2022-02-10T15:20:51.000Z" itemprop="datePublished">2022-02-10</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+    <a href="/2022/02/10/HITDS2021/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
         
+          哈工大2021年秋季学期数据结构期末试题
+        
+      </div>
+    </a>
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/02/10/KMP/">KMP字符串匹配算法</a>
-    </h1>
   
+    <a href="/2022/02/10/KMP/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">KMP字符串匹配算法</div>
+    </a>
+  
+</nav>
 
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>字符串的模式匹配是以下的一种常见问题：给定字符串$s$(主串)和$t$(模式串)$(|s|&#x3D;n,|t|&#x3D;m,m\leq n)$，求$t$在$s$中第一次出现的位置。如:</p>
-<p>$s&#x3D;”ababcabcacbab”$<br>$t&#x3D;\ \ \ \ \ \ \ \ \ \ “abcac”$<br>则$t$首次出现在对齐处,即主串的第6位。很容易想到一种枚举的方法(Brute Force)：</p>
-<h2 id="1-BF算法-Brute-Force"><a href="#1-BF算法-Brute-Force" class="headerlink" title="1.BF算法(Brute Force)"></a>1.BF算法(Brute Force)</h2><p>BF算法即从$i&#x3D;1$开始，$i$至多到$n-m+1$，每次将模式串$t$的开始与$s$的第$i$位对齐并进行对照，即比较$s[i…i+m-1]$与$t[1…m]$是否相等。显然，这种算法的最差复杂度当$t$每次都在最后一位与$s$失配时出现，总比较次数$&#x3D;m(n-m+1)&#x3D;O(nm)$.</p>
-<h2 id="2-KMP算法"><a href="#2-KMP算法" class="headerlink" title="2.KMP算法"></a>2.KMP算法</h2><p>KMP算法通过计算模式串$t$的一些额外信息$(next$数组$)$来避免不必要的必定失配的情况，从而优化时间复杂度。它由Knuth、Morris和Pratt同时提出，故得名KMP算法。</p>
-<p>现考虑BF算法在匹配失配时的情况。设$s$与$t$在$s[i],t[j]$处失配，即：<br>$s[i-j+1…i-1]&#x3D;t[1..j-1]$<br>$s[i]\neq t[j]$<br>按照BF算法，失配后应将$t$右移一位，使得$s[i-j+2]与t[1]$对齐进行下一次匹配。此时，若对于模式串$t$有</p>
-<p>$t[1…j-2] \neq t[2…j-1]\ \ \ \  \ \ \ \ \ \ \ \ \ \ (1)$，</p>
-<p>那么就有</p>
-<p>$t[1…j-2] \neq t[2…j-1] &#x3D; s[i-j+2…i-1]$,</p>
-<p>因此</p>
-<p>$t[1…j-2] \neq s[i-j+2…i-1]$（可参照下图，相同颜色表示串相同）<br><img src="https://img-blog.csdnimg.cn/763669a957f64d6d8b256c7d288f13f0.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"></p>
-<p>图中$s$中橙色框一定与$t_2$（下一次匹配）中的绿框不相等(式$(1)$)，因此下一次匹配一定会在模式串的$1…j-2$处失败$(*)$。<br>同理，当有$t[1…j-3] \neq t[3…j-1]$时，下下次匹配一定会失败。那么什么时候匹配有可能成功呢？我们需要找到从大到小第一个出现的值$k$,使得$t[1…k] \neq t[j-k…j-1]$而$t[1…k-1]&#x3D;t[j-k+1…j-1]$，即子串$t[1…j-1]$的最长的相同的前后缀长度+1。</p>
-<p>如：$t&#x3D;”abaabcac”$<br>当$j&#x3D;6$时，$t[1…5]$最长相同的前后缀为$”ab”$长为$2$，因此此时$k$值为$3$.</p>
-<p>当我们能求出这个$k$的值后，我们就可以推断出下一次可能匹配成功的位置，见下图。<br><img src="https://img-blog.csdnimg.cn/70d778c609364ecaae32cf7213792527.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>我们已经断定跳过的几次匹配一定会失配，因此我们可以直接将$t[1]$与$s[i-k+1]$对齐,而由相同前后缀的性质，标红框的部分完全相同，因此还可以跳过这一次匹配的$1…k-1$部分，直接将$s[i]$与$t[k]$进行比对。</p>
-<p>通过上面的分析，我们可以总结出$k$的一些性质：<br>$(1)k$只与模式串$t$自己有关，而且是一个关于下标$j$的函数，即$k&#x3D;next(j);$<br>$(2)0 \leq next(j) \leq j-1$,它表明$t[1…j]$有长为$next(j)-1$的相同前后缀$;$<br>$(3)$当不存在相同前后缀时,$next(j)&#x3D;1;$<br>$(4)$定义$next(1)&#x3D;0.$</p>
-<h2 id="3-next数组的求法"><a href="#3-next数组的求法" class="headerlink" title="3.next数组的求法"></a>3.next数组的求法</h2><p>$next$数组可通过归纳求得。以下是具体分析:<br>$(1)next[1]&#x3D;0;$<br>$(2)$假设$next[1],next[2],…,next[j]$均已知，现求出$next[j+1].$<br>设$next[j]&#x3D;k,$这说明$t[1…j-1]$有长为$k-1$的相同前后缀。</p>
-<p>①当$t[k]&#x3D;t[j]$,那么$t[1…j]$便有长为$k$的相同前后缀。那么$t[1…j]$能否有比$k$更长的相同前后缀呢？答案是不能。如图:<br><img src="https://img-blog.csdnimg.cn/846b5023c2e341ddb9796592aa20f65d.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>红框圈起来的部分代表$next(j)$所表示的相同前后缀；紫色框表示$t[k]&#x3D;t[j]$所带来的$t[1…j]$的长为$k$的前后缀。左边的紫框一定不等于绿框，否则$next(j)$便可取到$k+1,$因此两个黄框一定不相等，因为它们前$k$位一个是紫框，一个是绿框。因此当$t[k]&#x3D;t[j],next(j+1)&#x3D;k+1&#x3D;next(j)+1$.</p>
-<p>②当$t[k] \neq t[j]$，此时视为模式串$t$与自身匹配，而且$t[k]$和$t[j]$失配。由①可知，只能寻找比$k$更短的相同前后缀。<img src="https://img-blog.csdnimg.cn/c673946e0fdf4f5bbc05b28c1ba4199f.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"></p>
-<p>此时将下面的串不断向右移动，判断重叠部分（即绿框）是否相等，找出最长的相同前后缀。由KMP$(*)$部分可知，可以直接将下面的串的第$k’&#x3D;next[k]$与上面串的第$j$位比较(否则一定会失配)。如果移动后$t[j]&#x3D;t[k’],$那么便有$next(j+1)&#x3D;k’+1&#x3D;next(k)+1&#x3D;next(next(j))+1;$如若不然，不断令$k^{(n)}&#x3D;next(k^{(n-1)})$,直到：<br>$(a)$$t[j]&#x3D;t[k^{(n)}]$，则$next(j+1)&#x3D;k^{(n)}+1.$<br>$(b)$直至迭代到$k^{(n)}&#x3D;1$时，$t[j] \neq t[k^{(n)}]$，即上下串仅一位重叠仍不相等(下图)，说明没有公共前后缀，此时令$next(j+1)&#x3D;1.$<br><img src="https://img-blog.csdnimg.cn/b71335b56a954efa90537d61f74764e9.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"></p>
-<h2 id="4-代码实现"><a href="#4-代码实现" class="headerlink" title="4.代码实现"></a>4.代码实现</h2><p>-求$next$数组</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">GetNext</span><span class="params">(<span class="type">char</span> *t,<span class="type">int</span> *next)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">int</span> i = <span class="number">1</span>,j = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span>(i&lt;m)<span class="comment">//m为模式串长度</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(j == <span class="number">0</span> || t[i] == t[j])</span><br><span class="line">		&#123;</span><br><span class="line">			i++;</span><br><span class="line">			j++;</span><br><span class="line">			next[i] = j;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> j = next[j];</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>代码中$i$表示当前要求的$next$下标，$j$表示下面的串的第$j$位与上面的串(上一部分图解)尝试进行匹配。<br>$j &#x3D;&#x3D; 0$表示当迭代到最后仍然没有公共前后缀的情况，此时$next[++i]&#x3D;1.$<br>$t[i]&#x3D;t[j]$说明当前匹配成功，记录下$next[++i]&#x3D;j+1$，否则迭代$j$为$next[j]。$</p>
-<p>-KMP</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">KMP</span><span class="params">(<span class="type">char</span> *s,<span class="type">char</span> *t)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">int</span> i = <span class="number">1</span>,j = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span>(i&lt;=n &amp;&amp; j&lt;=m)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(j == <span class="number">0</span> || s[i] == t[j])</span><br><span class="line">		&#123;</span><br><span class="line">			i++;</span><br><span class="line">			j++;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> j = next[j];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(j&gt;m) <span class="keyword">return</span> i-m;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>与求$next$数组很相似，当$j&#x3D;0$时，说明$s[i]$与$t[1]$不相等，此时模式串右移一位将$j$置为$1$，同时$i++$使得模式串从头开始与主串下一位匹配。<br>当$s[i]&#x3D;&#x3D;t[j]$时，说明当前位匹配成功，$i,j$均自增。否则$j$迭代为$next[j]$.<br>当$j&gt;m$时，说明模式串匹配完成，匹配成功位置为$(i-1)-m+1&#x3D;i-m$（由于$i$在匹配成功时自增了$1$，需要减掉）</p>
-<p>KMP算法的复杂度为$O(n+m)&#x3D;O(n).$</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/10/KMP/" data-id="ckzh510910002i8ug9cv5fvj6" data-title="KMP字符串匹配算法" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
   
 </article>
-
-
-
-  
 
 
 </section>
