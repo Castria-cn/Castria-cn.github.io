@@ -1,11 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  
-  
-  <title>Hexo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
   <meta property="og:type" content="website">
 <meta property="og:title" content="Hexo">
 <meta property="og:url" content="http://example.com/index.html">
@@ -13,87 +27,164 @@
 <meta property="og:locale" content="en_US">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Hexo</title>
   
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/favicon.png">
-  
-  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
     
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
 
-  
-  
-<link rel="stylesheet" href="/css/style.css">
 
-  
-    
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
 
-  
-<meta name="generator" content="Hexo 6.0.0"></head>
-
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo</a>
-      </h1>
+          <div class="content index posts-expand">
+            
       
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/02/10/LuoguCode/">
 
-      <div class="outer">
-        <section id="main">
-  
-    <article id="post-LuoguCode" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/02/10/LuoguCode/" class="article-date">
-  <time class="dt-published" datetime="2022-02-10T15:47:10.000Z" itemprop="datePublished">2022-02-10</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/02/10/LuoguCode/">LuoguCode</a>
-    </h1>
-  
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
 
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/02/10/LuoguCode/" class="post-title-link" itemprop="url">LuoguCode</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-02-10 23:47:10 / Modified: 23:48:00" itemprop="dateCreated datePublished" datetime="2022-02-10T23:47:10+08:00">2022-02-10</time>
+            </span>
+
+          
+
+        </div>
       </header>
+
     
-    <div class="e-content article-entry" itemprop="articleBody">
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <p>总体思路：根据个人的评测记录页（<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/record/list?user=...%EF%BC%89%EF%BC%8C%E8%8E%B7%E5%8F%96%E6%AF%8F%E9%81%93%E9%A2%98%E7%9A%84%E8%AF%84%E6%B5%8B%E7%BC%96%E5%8F%B7%EF%BC%8C%E5%86%8D%E8%BF%9B%E5%85%A5%E7%BC%96%E5%8F%B7%E9%A1%B5%E8%8E%B7%E5%8F%96%E4%BB%A3%E7%A0%81%E4%B8%AD%E6%8D%A2%E8%A1%8C%E7%AC%A6%E7%9A%84%E4%B8%AA%E6%95%B0%E8%BF%9B%E8%A1%8C%E7%B4%AF%E5%8A%A0%E3%80%82">https://www.luogu.com.cn/record/list?user=...），获取每道题的评测编号，再进入编号页获取代码中换行符的个数进行累加。</a></p>
+          <p>总体思路：根据个人的评测记录页（<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/record/list?user=...%EF%BC%89%EF%BC%8C%E8%8E%B7%E5%8F%96%E6%AF%8F%E9%81%93%E9%A2%98%E7%9A%84%E8%AF%84%E6%B5%8B%E7%BC%96%E5%8F%B7%EF%BC%8C%E5%86%8D%E8%BF%9B%E5%85%A5%E7%BC%96%E5%8F%B7%E9%A1%B5%E8%8E%B7%E5%8F%96%E4%BB%A3%E7%A0%81%E4%B8%AD%E6%8D%A2%E8%A1%8C%E7%AC%A6%E7%9A%84%E4%B8%AA%E6%95%B0%E8%BF%9B%E8%A1%8C%E7%B4%AF%E5%8A%A0%E3%80%82">https://www.luogu.com.cn/record/list?user=...），获取每道题的评测编号，再进入编号页获取代码中换行符的个数进行累加。</a></p>
 <p>获取页面代码：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">getHTMLText</span>(<span class="params">url,cookie</span>):</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        response = requests.get(url, headers=header,cookies=cookie)</span><br><span class="line">        <span class="keyword">return</span> response.text</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
 <p>其中参数header初始化(dict型):</p>
@@ -124,42 +215,62 @@
 
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/10/LuoguCode/" data-id="ckzibo2fs0002skugd5prfdai" data-title="LuoguCode" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
 
-
-
-  
-    <article id="post-HITDS2021" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/02/10/HITDS2021/" class="article-date">
-  <time class="dt-published" datetime="2022-02-10T15:20:51.000Z" itemprop="datePublished">2022-02-10</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
     
     
-      <header class="article-header">
-        
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/02/10/HITDS2021/">哈工大2021年秋季学期数据结构期末试题</a>
-    </h1>
+  
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/02/10/HITDS2021/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/02/10/HITDS2021/" class="post-title-link" itemprop="url">哈工大2021年秋季学期数据结构期末试题</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-02-10 23:20:51 / Modified: 23:42:53" itemprop="dateCreated datePublished" datetime="2022-02-10T23:20:51+08:00">2022-02-10</time>
+            </span>
+
+          
+
+        </div>
       </header>
+
     
-    <div class="e-content article-entry" itemprop="articleBody">
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <p>因为考完试没有收演草纸，所以题中数据与考试差距不大。选项顺序可能略有差异；选择第5题希尔排序的序列数据是后编的；简答第3题B-树的插入序列顺序可能不同，但是考察的点是一样的。其他题的数据基本可以保证和原题一样。</p>
+          <p>因为考完试没有收演草纸，所以题中数据与考试差距不大。选项顺序可能略有差异；选择第5题希尔排序的序列数据是后编的；简答第3题B-树的插入序列顺序可能不同，但是考察的点是一样的。其他题的数据基本可以保证和原题一样。</p>
 <h2 id="一、选择题"><a href="#一、选择题" class="headerlink" title="一、选择题"></a>一、选择题</h2><p>$1$.以下代码的时间复杂度是</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="type">int</span> k=<span class="number">1</span>;k&lt;=n;k*=<span class="number">2</span>)</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">1</span>;j&lt;=n;j++)</span><br><span class="line">		count++;</span><br></pre></td></tr></table></figure>
 <p>$A.O(n)\ \ \ \ \ \ \ B.O(nlogn)\ \ \ \ \ \ \ C.O(n^2)\ \ \ \ \ \ \ D.O(logn)$<br>$2$.一棵二叉树的先序序列是$a,b,c,d$，有多少种可能的形态？<br>$A.13\ \ \ \ \ \ \ B.14\ \ \ \ \ \ \ C.15\ \ \ \ \ \ \ D.16$<br>$3$.以下哪种方式可以用于求取图的所有极大连通子图？<br>$A$.广度优先搜索 $B$.关键路径 $C$.最短路 $D$.最小生成树<br>$4$.给定以下活动，缩短哪个活动的时间可以加快工程进度？</p>
@@ -285,42 +396,62 @@
 
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/10/HITDS2021/" data-id="ckzibo2fh0000skug5hmld19c" data-title="哈工大2021年秋季学期数据结构期末试题" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
 
-
-
-  
-    <article id="post-KMP" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/02/10/KMP/" class="article-date">
-  <time class="dt-published" datetime="2022-02-10T15:20:51.000Z" itemprop="datePublished">2022-02-10</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
     
     
-      <header class="article-header">
-        
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/02/10/KMP/">KMP字符串匹配算法</a>
-    </h1>
+  
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/02/10/KMP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/02/10/KMP/" class="post-title-link" itemprop="url">KMP字符串匹配算法</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-02-10 23:20:51 / Modified: 23:43:17" itemprop="dateCreated datePublished" datetime="2022-02-10T23:20:51+08:00">2022-02-10</time>
+            </span>
+
+          
+
+        </div>
       </header>
+
     
-    <div class="e-content article-entry" itemprop="articleBody">
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <p>字符串的模式匹配是以下的一种常见问题：给定字符串$s$(主串)和$t$(模式串)$(|s|&#x3D;n,|t|&#x3D;m,m\leq n)$，求$t$在$s$中第一次出现的位置。如:</p>
+          <p>字符串的模式匹配是以下的一种常见问题：给定字符串$s$(主串)和$t$(模式串)$(|s|&#x3D;n,|t|&#x3D;m,m\leq n)$，求$t$在$s$中第一次出现的位置。如:</p>
 <p>$s&#x3D;”ababcabcacbab”$<br>$t&#x3D;\ \ \ \ \ \ \ \ \ \ “abcac”$<br>则$t$首次出现在对齐处,即主串的第6位。很容易想到一种枚举的方法(Brute Force)：</p>
 <h2 id="1-BF算法-Brute-Force"><a href="#1-BF算法-Brute-Force" class="headerlink" title="1.BF算法(Brute Force)"></a>1.BF算法(Brute Force)</h2><p>BF算法即从$i&#x3D;1$开始，$i$至多到$n-m+1$，每次将模式串$t$的开始与$s$的第$i$位对齐并进行对照，即比较$s[i…i+m-1]$与$t[1…m]$是否相等。显然，这种算法的最差复杂度当$t$每次都在最后一位与$s$失配时出现，总比较次数$&#x3D;m(n-m+1)&#x3D;O(nm)$.</p>
 <h2 id="2-KMP算法"><a href="#2-KMP算法" class="headerlink" title="2.KMP算法"></a>2.KMP算法</h2><p>KMP算法通过计算模式串$t$的一些额外信息$(next$数组$)$来避免不必要的必定失配的情况，从而优化时间复杂度。它由Knuth、Morris和Pratt同时提出，故得名KMP算法。</p>
@@ -348,42 +479,62 @@
 
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/10/KMP/" data-id="ckzibo2fq0001skug8ep1h05r" data-title="KMP字符串匹配算法" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
 
-
-
-  
-    <article id="post-SkipList" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/02/10/SkipList/" class="article-date">
-  <time class="dt-published" datetime="2022-02-10T15:20:51.000Z" itemprop="datePublished">2022-02-10</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
     
     
-      <header class="article-header">
-        
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/02/10/SkipList/">跳表的C++实现</a>
-    </h1>
+  
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/02/10/SkipList/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/02/10/SkipList/" class="post-title-link" itemprop="url">跳表的C++实现</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-02-10 23:20:51 / Modified: 23:43:23" itemprop="dateCreated datePublished" datetime="2022-02-10T23:20:51+08:00">2022-02-10</time>
+            </span>
+
+          
+
+        </div>
       </header>
+
     
-    <div class="e-content article-entry" itemprop="articleBody">
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <p>跳表(Skip List)是在链表基础上进行改进的一种有序的数据结构，它为了便于查找，在插入过程中随机地将一些元素提升为高度为1~r的索引，以此来加快之后的操作。索引可以分为多层，一般而言，层数越高的索引个数越少。下面的图是一个跳表示例（隐去表头，上面的为高层）<br><img src="https://img-blog.csdnimg.cn/074088ed6dc74399af523e9cc67666e3.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"></p>
+          <p>跳表(Skip List)是在链表基础上进行改进的一种有序的数据结构，它为了便于查找，在插入过程中随机地将一些元素提升为高度为1~r的索引，以此来加快之后的操作。索引可以分为多层，一般而言，层数越高的索引个数越少。下面的图是一个跳表示例（隐去表头，上面的为高层）<br><img src="https://img-blog.csdnimg.cn/074088ed6dc74399af523e9cc67666e3.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"></p>
 <p>为了方便下面对代码实现的说明，先给出各数据类型的定义。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; </span><br><span class="line"><span class="keyword">class</span> <span class="title class_">skiplist</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">private</span>:</span><br><span class="line">	<span class="type">static</span> <span class="keyword">constexpr</span> <span class="type">int</span> MAX_LEVEL = <span class="number">16</span>;</span><br><span class="line">	<span class="type">static</span> <span class="keyword">constexpr</span> <span class="type">double</span> P = <span class="number">0.6</span>;</span><br><span class="line">    <span class="comment">//随机数产生相关,#include&lt;random&gt;，详见cppreference</span></span><br><span class="line">	std::random_device rd;</span><br><span class="line">	std::mt19937 gen;</span><br><span class="line">	std::uniform_real_distribution&lt;&gt; dis;</span><br><span class="line">	<span class="keyword">struct</span> <span class="title class_">node</span></span><br><span class="line">	&#123;</span><br><span class="line">		T data;</span><br><span class="line">		node *next[MAX_LEVEL+<span class="number">1</span>];</span><br><span class="line">		<span class="built_in">node</span>()</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=MAX_LEVEL;i++)</span><br><span class="line">				next[i] = <span class="literal">NULL</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;;</span><br><span class="line">	node *head;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">skiplist</span>()</span><br><span class="line">	&#123;</span><br><span class="line">		head = <span class="keyword">new</span> node;</span><br><span class="line">		gen = std::<span class="built_in">mt19937</span>(<span class="built_in">rd</span>());</span><br><span class="line">		dis = std::uniform_real_distribution&lt;&gt; (<span class="number">0</span>,<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
@@ -406,111 +557,171 @@
 
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/10/SkipList/" data-id="ckzibo2fu0003skugcfn7866b" data-title="跳表的C++实现" class="article-share-link">Share</a>
-      
-      
-      
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
     </footer>
   </div>
-  
-</article>
-
-
 
   
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
 
 
-</section>
-        
-          <aside id="sidebar">
-  
-    
-
-  
-    
-
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li></ul>
-    </div>
-  </div>
+<script src="/js/schemes/muse.js"></script>
 
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2022/02/10/LuoguCode/">LuoguCode</a>
-          </li>
-        
-          <li>
-            <a href="/2022/02/10/HITDS2021/">哈工大2021年秋季学期数据结构期末试题</a>
-          </li>
-        
-          <li>
-            <a href="/2022/02/10/KMP/">KMP字符串匹配算法</a>
-          </li>
-        
-          <li>
-            <a href="/2022/02/10/SkipList/">跳表的C++实现</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
+<script src="/js/next-boot.js"></script>
 
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      &copy; 2022 John Doe<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-
-<script src="/js/jquery-3.4.1.min.js"></script>
 
 
 
   
-<script src="/fancybox/jquery.fancybox.min.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
 
 
 
 
 
-  </div>
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
 </body>
 </html>
