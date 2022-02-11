@@ -27,16 +27,16 @@
 <meta property="og:site_name" content="Castria的博客">
 <meta property="og:description" content="字符串的模式匹配是以下的一种常见问题：给定字符串$s$(主串)和$t$(模式串)$(|s|&#x3D;n,|t|&#x3D;m,m\leq n)$，求$t$在$s$中第一次出现的位置。如: $s&#x3D;”ababcabcacbab”$$t&#x3D;\ \ \ \ \ \ \ \ \ \ “abcac”$则$t$首次出现在对齐处,即主串的第6位。很容易想到一种枚举的方法(Brute Force">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/763669a957f64d6d8b256c7d288f13f0.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/70d778c609364ecaae32cf7213792527.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/846b5023c2e341ddb9796592aa20f65d.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/c673946e0fdf4f5bbc05b28c1ba4199f.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/b71335b56a954efa90537d61f74764e9.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/763669a957f64d6d8b256c7d288f13f0.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/70d778c609364ecaae32cf7213792527.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/846b5023c2e341ddb9796592aa20f65d.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/c673946e0fdf4f5bbc05b28c1ba4199f.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/b71335b56a954efa90537d61f74764e9.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16">
 <meta property="article:published_time" content="2022-02-10T15:20:51.000Z">
-<meta property="article:modified_time" content="2022-02-10T15:43:17.938Z">
+<meta property="article:modified_time" content="2022-02-11T17:00:34.551Z">
 <meta property="article:author" content="Castria">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/763669a957f64d6d8b256c7d288f13f0.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/763669a957f64d6d8b256c7d288f13f0.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16">
 
 <link rel="canonical" href="http://example.com/2022/02/10/KMP/">
 
@@ -178,10 +178,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2022-02-10 23:20:51 / 修改时间：23:43:17" itemprop="dateCreated datePublished" datetime="2022-02-10T23:20:51+08:00">2022-02-10</time>
+              <time title="创建时间：2022-02-10 23:20:51" itemprop="dateCreated datePublished" datetime="2022-02-10T23:20:51+08:00">2022-02-10</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-02-12 01:00:34" itemprop="dateModified" datetime="2022-02-12T01:00:34+08:00">2022-02-12</time>
+              </span>
 
           
 
@@ -203,15 +209,15 @@
 <p>那么就有</p>
 <p>$t[1…j-2] \neq t[2…j-1] &#x3D; s[i-j+2…i-1]$,</p>
 <p>因此</p>
-<p>$t[1…j-2] \neq s[i-j+2…i-1]$（可参照下图，相同颜色表示串相同）<br><img src="https://img-blog.csdnimg.cn/763669a957f64d6d8b256c7d288f13f0.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"></p>
+<p>$t[1…j-2] \neq s[i-j+2…i-1]$（可参照下图，相同颜色表示串相同）<br><img src="https://img-blog.csdnimg.cn/763669a957f64d6d8b256c7d288f13f0.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"></p>
 <p>图中$s$中橙色框一定与$t_2$（下一次匹配）中的绿框不相等(式$(1)$)，因此下一次匹配一定会在模式串的$1…j-2$处失败$(*)$。<br>同理，当有$t[1…j-3] \neq t[3…j-1]$时，下下次匹配一定会失败。那么什么时候匹配有可能成功呢？我们需要找到从大到小第一个出现的值$k$,使得$t[1…k] \neq t[j-k…j-1]$而$t[1…k-1]&#x3D;t[j-k+1…j-1]$，即子串$t[1…j-1]$的最长的相同的前后缀长度+1。</p>
 <p>如：$t&#x3D;”abaabcac”$<br>当$j&#x3D;6$时，$t[1…5]$最长相同的前后缀为$”ab”$长为$2$，因此此时$k$值为$3$.</p>
-<p>当我们能求出这个$k$的值后，我们就可以推断出下一次可能匹配成功的位置，见下图。<br><img src="https://img-blog.csdnimg.cn/70d778c609364ecaae32cf7213792527.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>我们已经断定跳过的几次匹配一定会失配，因此我们可以直接将$t[1]$与$s[i-k+1]$对齐,而由相同前后缀的性质，标红框的部分完全相同，因此还可以跳过这一次匹配的$1…k-1$部分，直接将$s[i]$与$t[k]$进行比对。</p>
+<p>当我们能求出这个$k$的值后，我们就可以推断出下一次可能匹配成功的位置，见下图。<br><img src="https://img-blog.csdnimg.cn/70d778c609364ecaae32cf7213792527.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>我们已经断定跳过的几次匹配一定会失配，因此我们可以直接将$t[1]$与$s[i-k+1]$对齐,而由相同前后缀的性质，标红框的部分完全相同，因此还可以跳过这一次匹配的$1…k-1$部分，直接将$s[i]$与$t[k]$进行比对。</p>
 <p>通过上面的分析，我们可以总结出$k$的一些性质：<br>$(1)k$只与模式串$t$自己有关，而且是一个关于下标$j$的函数，即$k&#x3D;next(j);$<br>$(2)0 \leq next(j) \leq j-1$,它表明$t[1…j]$有长为$next(j)-1$的相同前后缀$;$<br>$(3)$当不存在相同前后缀时,$next(j)&#x3D;1;$<br>$(4)$定义$next(1)&#x3D;0.$</p>
 <h2 id="3-next数组的求法"><a href="#3-next数组的求法" class="headerlink" title="3.next数组的求法"></a>3.next数组的求法</h2><p>$next$数组可通过归纳求得。以下是具体分析:<br>$(1)next[1]&#x3D;0;$<br>$(2)$假设$next[1],next[2],…,next[j]$均已知，现求出$next[j+1].$<br>设$next[j]&#x3D;k,$这说明$t[1…j-1]$有长为$k-1$的相同前后缀。</p>
-<p>①当$t[k]&#x3D;t[j]$,那么$t[1…j]$便有长为$k$的相同前后缀。那么$t[1…j]$能否有比$k$更长的相同前后缀呢？答案是不能。如图:<br><img src="https://img-blog.csdnimg.cn/846b5023c2e341ddb9796592aa20f65d.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>红框圈起来的部分代表$next(j)$所表示的相同前后缀；紫色框表示$t[k]&#x3D;t[j]$所带来的$t[1…j]$的长为$k$的前后缀。左边的紫框一定不等于绿框，否则$next(j)$便可取到$k+1,$因此两个黄框一定不相等，因为它们前$k$位一个是紫框，一个是绿框。因此当$t[k]&#x3D;t[j],next(j+1)&#x3D;k+1&#x3D;next(j)+1$.</p>
-<p>②当$t[k] \neq t[j]$，此时视为模式串$t$与自身匹配，而且$t[k]$和$t[j]$失配。由①可知，只能寻找比$k$更短的相同前后缀。<img src="https://img-blog.csdnimg.cn/c673946e0fdf4f5bbc05b28c1ba4199f.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"></p>
-<p>此时将下面的串不断向右移动，判断重叠部分（即绿框）是否相等，找出最长的相同前后缀。由KMP$(*)$部分可知，可以直接将下面的串的第$k’&#x3D;next[k]$与上面串的第$j$位比较(否则一定会失配)。如果移动后$t[j]&#x3D;t[k’],$那么便有$next(j+1)&#x3D;k’+1&#x3D;next(k)+1&#x3D;next(next(j))+1;$如若不然，不断令$k^{(n)}&#x3D;next(k^{(n-1)})$,直到：<br>$(a)$$t[j]&#x3D;t[k^{(n)}]$，则$next(j+1)&#x3D;k^{(n)}+1.$<br>$(b)$直至迭代到$k^{(n)}&#x3D;1$时，$t[j] \neq t[k^{(n)}]$，即上下串仅一位重叠仍不相等(下图)，说明没有公共前后缀，此时令$next(j+1)&#x3D;1.$<br><img src="https://img-blog.csdnimg.cn/b71335b56a954efa90537d61f74764e9.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"></p>
+<p>①当$t[k]&#x3D;t[j]$,那么$t[1…j]$便有长为$k$的相同前后缀。那么$t[1…j]$能否有比$k$更长的相同前后缀呢？答案是不能。如图:<br><img src="https://img-blog.csdnimg.cn/846b5023c2e341ddb9796592aa20f65d.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>红框圈起来的部分代表$next(j)$所表示的相同前后缀；紫色框表示$t[k]&#x3D;t[j]$所带来的$t[1…j]$的长为$k$的前后缀。左边的紫框一定不等于绿框，否则$next(j)$便可取到$k+1,$因此两个黄框一定不相等，因为它们前$k$位一个是紫框，一个是绿框。因此当$t[k]&#x3D;t[j],next(j+1)&#x3D;k+1&#x3D;next(j)+1$.</p>
+<p>②当$t[k] \neq t[j]$，此时视为模式串$t$与自身匹配，而且$t[k]$和$t[j]$失配。由①可知，只能寻找比$k$更短的相同前后缀。<img src="https://img-blog.csdnimg.cn/c673946e0fdf4f5bbc05b28c1ba4199f.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"></p>
+<p>此时将下面的串不断向右移动，判断重叠部分（即绿框）是否相等，找出最长的相同前后缀。由KMP$(*)$部分可知，可以直接将下面的串的第$k’&#x3D;next[k]$与上面串的第$j$位比较(否则一定会失配)。如果移动后$t[j]&#x3D;t[k’],$那么便有$next(j+1)&#x3D;k’+1&#x3D;next(k)+1&#x3D;next(next(j))+1;$如若不然，不断令$k^{(n)}&#x3D;next(k^{(n-1)})$,直到：<br>$(a)$$t[j]&#x3D;t[k^{(n)}]$，则$next(j+1)&#x3D;k^{(n)}+1.$<br>$(b)$直至迭代到$k^{(n)}&#x3D;1$时，$t[j] \neq t[k^{(n)}]$，即上下串仅一位重叠仍不相等(下图)，说明没有公共前后缀，此时令$next(j+1)&#x3D;1.$<br><img src="https://img-blog.csdnimg.cn/b71335b56a954efa90537d61f74764e9.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"></p>
 <h2 id="4-代码实现"><a href="#4-代码实现" class="headerlink" title="4.代码实现"></a>4.代码实现</h2><p>-求$next$数组</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">GetNext</span><span class="params">(<span class="type">char</span> *t,<span class="type">int</span> *next)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">int</span> i = <span class="number">1</span>,j = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span>(i&lt;m)<span class="comment">//m为模式串长度</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(j == <span class="number">0</span> || t[i] == t[j])</span><br><span class="line">		&#123;</span><br><span class="line">			i++;</span><br><span class="line">			j++;</span><br><span class="line">			next[i] = j;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> j = next[j];</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>代码中$i$表示当前要求的$next$下标，$j$表示下面的串的第$j$位与上面的串(上一部分图解)尝试进行匹配。<br>$j &#x3D;&#x3D; 0$表示当迭代到最后仍然没有公共前后缀的情况，此时$next[++i]&#x3D;1.$<br>$t[i]&#x3D;t[j]$说明当前匹配成功，记录下$next[++i]&#x3D;j+1$，否则迭代$j$为$next[j]。$</p>
@@ -313,7 +319,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
