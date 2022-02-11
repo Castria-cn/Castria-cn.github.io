@@ -20,21 +20,21 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="总体思路：根据个人的评测记录页（https:&#x2F;&#x2F;www.luogu.com.cn&#x2F;record&#x2F;list?user&#x3D;...），获取每道题的评测编号，再进入编号页获取代码中换行符的个数进行累加。 获取页面代码： 123456def getHTMLText(url,cookie):    try:        response &#x3D; requests.get(url, headers&#x3D;header,c">
+  <meta name="description" content="总体思路：根据个人的评测记录页（https:&#x2F;&#x2F;www.luogu.com.cn&#x2F;record&#x2F;list?user&#x3D;...），获取每道题的评测编号，再进入编号页获取代码中换行符的个数进行累加。 获取页面代码： 1234567import requestsdef getHTMLText(url,cookie):    try:        response &#x3D; requests.get(url,">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LuoguCode">
+<meta property="og:title" content="python requests库爬取洛谷代码总行数">
 <meta property="og:url" content="http://example.com/2022/02/10/LuoguCode/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="总体思路：根据个人的评测记录页（https:&#x2F;&#x2F;www.luogu.com.cn&#x2F;record&#x2F;list?user&#x3D;...），获取每道题的评测编号，再进入编号页获取代码中换行符的个数进行累加。 获取页面代码： 123456def getHTMLText(url,cookie):    try:        response &#x3D; requests.get(url, headers&#x3D;header,c">
+<meta property="og:description" content="总体思路：根据个人的评测记录页（https:&#x2F;&#x2F;www.luogu.com.cn&#x2F;record&#x2F;list?user&#x3D;...），获取每道题的评测编号，再进入编号页获取代码中换行符的个数进行累加。 获取页面代码： 1234567import requestsdef getHTMLText(url,cookie):    try:        response &#x3D; requests.get(url,">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/6063a968c14f4499a2cdd1c002783fb1.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/101ea8b4791d49a9a1137e8592e6fa2f.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/6063a968c14f4499a2cdd1c002783fb1.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/101ea8b4791d49a9a1137e8592e6fa2f.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/71f5a4c193be46c1875540857c2845d5.png">
 <meta property="article:published_time" content="2022-02-10T15:47:10.000Z">
-<meta property="article:modified_time" content="2022-02-10T15:48:00.350Z">
+<meta property="article:modified_time" content="2022-02-11T15:46:47.416Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/6063a968c14f4499a2cdd1c002783fb1.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/6063a968c14f4499a2cdd1c002783fb1.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16">
 
 <link rel="canonical" href="http://example.com/2022/02/10/LuoguCode/">
 
@@ -49,7 +49,7 @@
   };
 </script>
 
-  <title>LuoguCode | Hexo</title>
+  <title>python requests库爬取洛谷代码总行数 | Hexo</title>
   
 
 
@@ -167,7 +167,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          LuoguCode
+          python requests库爬取洛谷代码总行数
         </h1>
 
         <div class="post-meta">
@@ -176,10 +176,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2022-02-10 23:47:10 / Modified: 23:48:00" itemprop="dateCreated datePublished" datetime="2022-02-10T23:47:10+08:00">2022-02-10</time>
+              <time title="Created: 2022-02-10 23:47:10" itemprop="dateCreated datePublished" datetime="2022-02-10T23:47:10+08:00">2022-02-10</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-02-11 23:46:47" itemprop="dateModified" datetime="2022-02-11T23:46:47+08:00">2022-02-11</time>
+              </span>
 
           
 
@@ -194,11 +200,11 @@
       
         <p>总体思路：根据个人的评测记录页（<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/record/list?user=...%EF%BC%89%EF%BC%8C%E8%8E%B7%E5%8F%96%E6%AF%8F%E9%81%93%E9%A2%98%E7%9A%84%E8%AF%84%E6%B5%8B%E7%BC%96%E5%8F%B7%EF%BC%8C%E5%86%8D%E8%BF%9B%E5%85%A5%E7%BC%96%E5%8F%B7%E9%A1%B5%E8%8E%B7%E5%8F%96%E4%BB%A3%E7%A0%81%E4%B8%AD%E6%8D%A2%E8%A1%8C%E7%AC%A6%E7%9A%84%E4%B8%AA%E6%95%B0%E8%BF%9B%E8%A1%8C%E7%B4%AF%E5%8A%A0%E3%80%82">https://www.luogu.com.cn/record/list?user=...），获取每道题的评测编号，再进入编号页获取代码中换行符的个数进行累加。</a></p>
 <p>获取页面代码：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">getHTMLText</span>(<span class="params">url,cookie</span>):</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        response = requests.get(url, headers=header,cookies=cookie)</span><br><span class="line">        <span class="keyword">return</span> response.text</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">getHTMLText</span>(<span class="params">url,cookie</span>):</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        response = requests.get(url, headers=header,cookies=cookie)</span><br><span class="line">        <span class="keyword">return</span> response.text</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
 <p>其中参数header初始化(dict型):</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">header = &#123;<span class="string">&#x27;User-Agent&#x27;</span>: <span class="string">&#x27;Mozilla/5.0&#x27;</span>&#125;</span><br></pre></td></tr></table></figure>
 <p>cookie初始化需要查看一下浏览器的开发人员工具：（以Edge为例，其他类似）</p>
-<p>1.按F12打开开发人员工具，找到“应用程序”<br><img src="https://img-blog.csdnimg.cn/6063a968c14f4499a2cdd1c002783fb1.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>2.在洛谷登录后界面点击cookie<br><img src="https://img-blog.csdnimg.cn/101ea8b4791d49a9a1137e8592e6fa2f.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>3.对于每一个名称和值，在代码中以dict形式存入：<br>(代码中仅放了一对，应把所有cookie全放入dict中）</p>
+<p>1.按F12打开开发人员工具，找到“应用程序”<br><img src="https://img-blog.csdnimg.cn/6063a968c14f4499a2cdd1c002783fb1.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>2.在洛谷登录后界面点击cookie<br><img src="https://img-blog.csdnimg.cn/101ea8b4791d49a9a1137e8592e6fa2f.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>3.对于每一个名称和值，在代码中以dict形式存入：<br>(代码中仅放了一对，应把所有cookie全放入dict中）</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cookie = &#123;<span class="string">&#x27;login_referer&#x27;</span>:<span class="string">&#x27;https%3A%2F%2Fwww.luogu.com.cn%2F&#x27;</span>&#125;</span><br></pre></td></tr></table></figure>
 <p>现在可以分析评测记录页爬取的代码了(user&#x3D;自己的id编号)：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">url = <span class="string">r&#x27;https://www.luogu.com.cn/record/list?user=...&amp;page=1&#x27;</span><span class="comment">#修改user=</span></span><br><span class="line"><span class="built_in">print</span>(getHTMLText(url,cookie))</span><br></pre></td></tr></table></figure>
