@@ -1206,7 +1206,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #ff77fc;
+  background: #ff0581;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2302,6 +2302,10 @@ embed {
 }
 .sidebar {
   left: -320px;
+  background: url("images/sidebar-bg.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 .sidebar.sidebar-active {
   left: 0;
