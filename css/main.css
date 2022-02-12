@@ -1206,7 +1206,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #36ffff;
+  background: #331fe7;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2340,8 +2340,8 @@ embed {
   white-space: nowrap;
 }
 .site-author-name {
-    color: #999;
-    font-weight: normal;
-    margin: 5px 0 0;
-    text-align: center;
+  color: #999;
+  font-weight: normal;
+  margin: 5px 0 0;
+  text-align: center;
 }
