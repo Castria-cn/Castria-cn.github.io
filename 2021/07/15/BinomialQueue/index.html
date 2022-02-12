@@ -43,7 +43,7 @@
 <meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/5ab30eac8bd7aa9623b0808e9f987ab4.png">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/0571bbeae4cada202d0e0abb7402c271.png">
 <meta property="article:published_time" content="2021-07-15T14:30:27.000Z">
-<meta property="article:modified_time" content="2022-02-12T10:57:59.376Z">
+<meta property="article:modified_time" content="2022-02-12T11:34:02.422Z">
 <meta property="article:author" content="Castria">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://img-blog.csdnimg.cn/20210715203515675.png?x-oss-process=image,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3d5bjE1NjQ0NjQ1Njg=,size_16,color_FFFFFF,t_70">
@@ -196,7 +196,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-02-12 18:57:59" itemprop="dateModified" datetime="2022-02-12T18:57:59+08:00">2022-02-12</time>
+                <time title="修改时间：2022-02-12 19:34:02" itemprop="dateModified" datetime="2022-02-12T19:34:02+08:00">2022-02-12</time>
               </span>
 
           
@@ -211,7 +211,7 @@
 
       
         <p>注：此博客改编自《数据结构与算法分析：C语言描述》中二项队列一节，如有设计不当之处还请指出。</p>
-<h1 id="二项队列的结构"><a href="#二项队列的结构" class="headerlink" title="二项队列的结构"></a>二项队列的结构</h1><p>二项队列(Binomial Queue)是一种可以实现：<br>$(1)$向其中添加元素；<br>$(2)$删除、获取其中的最小(最大)元素；<br>$(3)$合并两个二项队列 的数据结构。<br>和它具有相同功能的有左式堆(左偏树)(Leftist Heap)和斜堆(Skew Heap)。但是它们的所有操作都花费$O(logN)$时间，而二项队列的插入操作只需常数时间。<br>不同于左偏树和斜堆，二项队列一般地由具有堆序性质的多棵树构成，即森林。每棵堆序树称为二项树(Binomial Tree),它们具有下图所示的结构：<br><img src="https://img-blog.csdnimg.cn/20210715203515675.png?x-oss-process=image,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3d5bjE1NjQ0NjQ1Njg=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20210715203720394.png?x-oss-process=image,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3d5bjE1NjQ0NjQ1Njg=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20210715204018238.png?x-oss-process=image,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3d5bjE1NjQ0NjQ1Njg=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>下面的每个数字表示图中二项树的高度。记深度为$k$的二项树为$B_k$。在$B_4$中，考察图中每一层的节点数，可以发现符合二项系数$(1,4,6,4,1)$。一般地，高度为$k$的的二项树在深度为$d$处的节点总数是$C_d^k$。<br>回到二项队列的结构：设一个二项队列包含$N$个元素，那么将$N$表示为它的二进制形式，二项队列便由$popcount(N)$个二项树组成，其中$popcount(N)$表示$N$的二进制表示中$1$的个数。每个二项树对应一个2的幂：例如，一个二项队列包含$13$个元素，将$13$写为二进制$1101_{(2)}&#x3D;8+4+1$，那么这个二项队列便由深度为$3、2、0$的二项树组成(即$B_3,B_2,B_0$)。</p>
+<h1 id="二项队列的结构"><a href="#二项队列的结构" class="headerlink" title="二项队列的结构"></a>二项队列的结构</h1><p>二项队列(Binomial Queue)是一种可以实现：<br>$(1)$向其中添加元素；<br>$(2)$删除、获取其中的最小(最大)元素；<br>$(3)$合并两个二项队列 的数据结构。<br>和它具有相同功能的有左式堆(左偏树)(Leftist Heap)和斜堆(Skew Heap)。但是它们的所有操作都花费$O(logN)$时间，而二项队列的插入操作只需常数时间。<span id="more"></span><br>不同于左偏树和斜堆，二项队列一般地由具有堆序性质的多棵树构成，即森林。每棵堆序树称为二项树(Binomial Tree),它们具有下图所示的结构：<br><img src="https://img-blog.csdnimg.cn/20210715203515675.png?x-oss-process=image,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3d5bjE1NjQ0NjQ1Njg=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20210715203720394.png?x-oss-process=image,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3d5bjE1NjQ0NjQ1Njg=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20210715204018238.png?x-oss-process=image,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3d5bjE1NjQ0NjQ1Njg=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>下面的每个数字表示图中二项树的高度。记深度为$k$的二项树为$B_k$。在$B_4$中，考察图中每一层的节点数，可以发现符合二项系数$(1,4,6,4,1)$。一般地，高度为$k$的的二项树在深度为$d$处的节点总数是$C_d^k$。<br>回到二项队列的结构：设一个二项队列包含$N$个元素，那么将$N$表示为它的二进制形式，二项队列便由$popcount(N)$个二项树组成，其中$popcount(N)$表示$N$的二进制表示中$1$的个数。每个二项树对应一个2的幂：例如，一个二项队列包含$13$个元素，将$13$写为二进制$1101_{(2)}&#x3D;8+4+1$，那么这个二项队列便由深度为$3、2、0$的二项树组成(即$B_3,B_2,B_0$)。</p>
 <h1 id="二项队列的操作"><a href="#二项队列的操作" class="headerlink" title="二项队列的操作"></a>二项队列的操作</h1><h2 id="求最小-最大-元素"><a href="#求最小-最大-元素" class="headerlink" title="求最小(最大)元素"></a>求最小(最大)元素</h2><p>以求最小元素为例。那么，每棵上述的二项树都应该满足小根堆性质。因此，我们可以从所有二项树，最多$logN$棵中求得最小元。因此求得最小元的时间复杂度为$O(logN)$。</p>
 <h2 id="合并两个二项队列"><a href="#合并两个二项队列" class="headerlink" title="合并两个二项队列"></a>合并两个二项队列</h2><p>由于插入元素可以转化为合并一个二项队列和一个单独的节点，因此我们只需要像左偏树一样解决合并问题即可。<br><img src="https://img-blog.csdnimg.cn/20210715210131552.png?x-oss-process=image,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3d5bjE1NjQ0NjQ1Njg=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>现在要合并如图所示的两个二项队列$H_1、H_2$。合并是通过类似二进制相加的方法完成的：<br>$(1)$考察两个二项队列的$B_0$部分，$H_2$有$B_0$而$H_1$没有，因此合成后的二项队列的$B_0$就是$H_2$的$B_0$。<br>$(2)$考察$B_1$部分，两个二项队列均有$B_1$，比较二者的根值，$H_2$的根值较小，为$14$，因此为了保持小根堆的性质，我们将$H_2$的$B_1$加入到$H_1$的上面，如下图；<br>$(3)$考察$B_2$部分，此时不仅$H_1,H_2$有$B_2$，刚才在$(2)$中我们像进位一样得到了一个$B_2$，因此现在共有三个$B_2$。将其中两个合并(同样要保持小根堆性质，这里选择除了进位得到的那两个合并)，得到一个$B_3$,剩下一个(这里选择刚才进位得到的)作为新二项队列的$B_2$部分。<br>$(4)$原先的二项队列没有$B_3$,但刚才$(3)$中进位得到了一个，将它作为新二项队列的$B_3$部分。<br>经过上述过程，两个二项队列合并为一个。<br><img src="https://img-blog.csdnimg.cn/20210715211529853.png?x-oss-process=image,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3d5bjE1NjQ0NjQ1Njg=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>图中的颜色对应了合并前后各数据的位置。</p>
 <h2 id="删除最小-最大-元素"><a href="#删除最小-最大-元素" class="headerlink" title="删除最小(最大)元素"></a>删除最小(最大)元素</h2><p>删除最小元素，需要先确定最小元素在哪一棵二项树上，这可以通过$O(logN)$的遍历确定。然后将这棵二项树的堆顶抹去：<br><img src="https://img-blog.csdnimg.cn/2021071521202526.png" alt="在这里插入图片描述"><br>如图所示，若这个二项树是最小元素所在的二项树，去掉堆顶元素后红框圈起的部分变成了一个$B_1$，可以视作一个新的二项队列，那么只需要将这个新的二项队列$H’’$与原二项队列除掉这棵二项树得到的$H’$合并即可。来看一个例子：<br><img src="https://img-blog.csdnimg.cn/20210715212625915.png?x-oss-process=image,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3d5bjE1NjQ0NjQ1Njg=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>在刚才合并得到的二项队列中，我们要删除最小元$12$，先找到它所在的二项树$B_3$:<br><img src="https://img-blog.csdnimg.cn/20210715212710632.png?x-oss-process=image,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3d5bjE1NjQ0NjQ1Njg=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>去掉$12$，得到一个新的二项队列：<br><img src="https://img-blog.csdnimg.cn/20210715212812712.png" alt="在这里插入图片描述"><br>合并它和剩下的<br><img src="https://img-blog.csdnimg.cn/20210715212845812.png?x-oss-process=image,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3d5bjE1NjQ0NjQ1Njg=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>即可。合并结果：<br><img src="https://img-blog.csdnimg.cn/20210715213005960.png?x-oss-process=image,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3d5bjE1NjQ0NjQ1Njg=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>(由于涉及进位，结果不唯一)</p>
@@ -353,6 +353,17 @@
   </div>
 
 
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://gsxgoldenlegendary.github.io/" title="https:&#x2F;&#x2F;gsxgoldenlegendary.github.io&#x2F;" rel="noopener" target="_blank">金色传说</a>
+        </li>
+    </ul>
+  </div>
 
       </div>
 
