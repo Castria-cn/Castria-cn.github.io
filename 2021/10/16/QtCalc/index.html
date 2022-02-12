@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="效果预览： 新建项目Qt CMake前缀路径选择Qt路径下面的mingw文件夹。 新建Qt UI类 用Qt Designer对界面进行布局（对于QtDesigner如何添加到Clion中，可以参考这篇博客） 布局如下，其中上面的文字框是Line Edit控件，按钮为Push Button。对每个控件进行调整、命名：可以调整按钮及文本框中的字体及大小、对齐方式：这里文本框选择右下角对齐。对.ui文件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Clion环境Qt简单示例程序:计算器">
+<meta property="og:url" content="http://example.com/2021/10/16/QtCalc/index.html">
+<meta property="og:site_name" content="Castria的博客">
+<meta property="og:description" content="效果预览： 新建项目Qt CMake前缀路径选择Qt路径下面的mingw文件夹。 新建Qt UI类 用Qt Designer对界面进行布局（对于QtDesigner如何添加到Clion中，可以参考这篇博客） 布局如下，其中上面的文字框是Line Edit控件，按钮为Push Button。对每个控件进行调整、命名：可以调整按钮及文本框中的字体及大小、对齐方式：这里文本框选择右下角对齐。对.ui文件">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/719834cc20ed46d3ac0a92b35f69f640.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_11,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/56ce13995a304239bb9209f6f9257b77.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/8f010f8c9fd84138bf35c626ce29631f.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/ed675c647082496188a23be4117f0c1d.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/ac465d43043d46c48658ba2dc9c01a5d.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_18,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/fb86a3455b924004b6fc01fddc225a67.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/0e57221185314225b2caa4b1ae76ba78.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_15,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/b5f61f086997407ab654c9d16565a5ac.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_14,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/986dd69622fb4e69af3461ee9a4c105e.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_14,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/f7e2c2ef9679496aa9f38150c16fd18a.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_17,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/d8f04dd82d0c47ea96c840ffddb973c8.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_19,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/095880669cb44c778ba6449fee29b3d5.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/9087fc9ed1214e0299fffd56e3ecf171.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_15,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/5e580e9ef47f473099bf841be377c25d.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_17,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/737a41b345d64cb0976da8db9dec2f4f.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/e27cbc72868f47ab83cf7139d4138c93.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_11,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/0abeb6ff7a424fc881779c8866d6d3d6.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/5edb097365b042c895f9ca0d72daf505.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_16,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/f0474ac8380e4a5992f2b0dfe5700286.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/af3a22d7384041118473ab768d0b2b4d.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/4673eea6868c423cbe42f410805b6f3e.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_11,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/ebd7c6b1eb594d24a3d7d15221b62165.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/4b03f78965114285aab4a99dd0aa3c6a.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/8cce68b23cd94760b719a2575fbe64af.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="article:published_time" content="2021-10-16T12:38:40.000Z">
+<meta property="article:modified_time" content="2022-02-12T10:59:02.143Z">
+<meta property="article:author" content="Castria">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/719834cc20ed46d3ac0a92b35f69f640.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_11,color_FFFFFF,t_70,g_se,x_16">
+
+<link rel="canonical" href="http://example.com/2021/10/16/QtCalc/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Clion环境Qt简单示例程序:计算器 | Castria的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Castria的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/16/QtCalc/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/icon.jpg">
+      <meta itemprop="name" content="Castria">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Castria的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Clion环境Qt简单示例程序:计算器
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-10-16 20:38:40" itemprop="dateCreated datePublished" datetime="2021-10-16T20:38:40+08:00">2021-10-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-02-12 18:59:02" itemprop="dateModified" datetime="2022-02-12T18:59:02+08:00">2022-02-12</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>效果预览：<br><img src="https://img-blog.csdnimg.cn/719834cc20ed46d3ac0a92b35f69f640.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_11,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"></p>
+<h1 id="新建项目"><a href="#新建项目" class="headerlink" title="新建项目"></a>新建项目</h1><p>Qt CMake前缀路径选择Qt路径下面的mingw文件夹。<br><img src="https://img-blog.csdnimg.cn/56ce13995a304239bb9209f6f9257b77.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"></p>
+<h1 id="新建Qt-UI类"><a href="#新建Qt-UI类" class="headerlink" title="新建Qt UI类"></a>新建Qt UI类</h1><p><img src="https://img-blog.csdnimg.cn/8f010f8c9fd84138bf35c626ce29631f.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/ed675c647082496188a23be4117f0c1d.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"></p>
+<h1 id="用Qt-Designer对界面进行布局"><a href="#用Qt-Designer对界面进行布局" class="headerlink" title="用Qt Designer对界面进行布局"></a>用Qt Designer对界面进行布局</h1><p>（对于QtDesigner如何添加到Clion中，可以参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_39510813/article/details/115482634">这篇博客</a>）<br><img src="https://img-blog.csdnimg.cn/ac465d43043d46c48658ba2dc9c01a5d.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_18,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"></p>
+<p>布局如下，其中上面的文字框是Line Edit控件，按钮为Push Button。<img src="https://img-blog.csdnimg.cn/fb86a3455b924004b6fc01fddc225a67.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>对每个控件进行调整、命名：<br><img src="https://img-blog.csdnimg.cn/0e57221185314225b2caa4b1ae76ba78.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_15,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>可以调整按钮及文本框中的字体及大小、对齐方式：<br><img src="https://img-blog.csdnimg.cn/b5f61f086997407ab654c9d16565a5ac.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_14,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>这里文本框选择右下角对齐。<br><img src="https://img-blog.csdnimg.cn/986dd69622fb4e69af3461ee9a4c105e.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_14,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>对.ui文件运行UIC（添加UIC与添加QtDesigner类似，可以自行搜索）<br><img src="https://img-blog.csdnimg.cn/f7e2c2ef9679496aa9f38150c16fd18a.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_17,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"></p>
+<h1 id="在-h文件中添加slots-在-cpp文件中编写处理按键的函数"><a href="#在-h文件中添加slots-在-cpp文件中编写处理按键的函数" class="headerlink" title="在.h文件中添加slots,在.cpp文件中编写处理按键的函数:"></a>在.h文件中添加slots,在.cpp文件中编写处理按键的函数:</h1><p><img src="https://img-blog.csdnimg.cn/d8f04dd82d0c47ea96c840ffddb973c8.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_19,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">mainwin::Btn_onClick</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    QPushButton *btn = (QPushButton*)<span class="built_in">sender</span>();</span><br><span class="line">    QString name = btn-&gt;<span class="built_in">objectName</span>();<span class="comment">//获取发送信息的按钮名</span></span><br><span class="line"></span><br><span class="line">    QLineEdit *le = ui-&gt;lineEdit;</span><br><span class="line">    QString text = le-&gt;<span class="built_in">text</span>();<span class="comment">//获取当前文本框的表达式</span></span><br><span class="line">    <span class="keyword">if</span>(text == <span class="string">&quot;ERROR&quot;</span>) text=<span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(name == <span class="string">&quot;Btn1&quot;</span>)&#123;</span><br><span class="line">        text += <span class="string">&quot;1&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(name == <span class="string">&quot;Btn2&quot;</span>)&#123;</span><br><span class="line">        text += <span class="string">&quot;2&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(name == <span class="string">&quot;Btn3&quot;</span>)&#123;</span><br><span class="line">        text += <span class="string">&quot;3&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(name == <span class="string">&quot;Btn4&quot;</span>)&#123;</span><br><span class="line">        text += <span class="string">&quot;4&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(name == <span class="string">&quot;Btn5&quot;</span>)&#123;</span><br><span class="line">        text += <span class="string">&quot;5&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(name == <span class="string">&quot;Btn6&quot;</span>)&#123;</span><br><span class="line">        text += <span class="string">&quot;6&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(name == <span class="string">&quot;Btn7&quot;</span>)&#123;</span><br><span class="line">        text += <span class="string">&quot;7&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(name == <span class="string">&quot;Btn8&quot;</span>)&#123;</span><br><span class="line">        text += <span class="string">&quot;8&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(name == <span class="string">&quot;Btn9&quot;</span>)&#123;</span><br><span class="line">        text += <span class="string">&quot;9&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(name == <span class="string">&quot;zero&quot;</span>)&#123;</span><br><span class="line">        text += <span class="string">&quot;0&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(name == <span class="string">&quot;plus&quot;</span>)&#123;</span><br><span class="line">        text += <span class="string">&quot;+&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(name == <span class="string">&quot;minus&quot;</span>)&#123;</span><br><span class="line">        text += <span class="string">&quot;-&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(name == <span class="string">&quot;times&quot;</span>)&#123;</span><br><span class="line">        text += <span class="string">&quot;*&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(name == <span class="string">&quot;divide&quot;</span>)&#123;</span><br><span class="line">        text += <span class="string">&quot;/&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(name == <span class="string">&quot;AC&quot;</span>)&#123;</span><br><span class="line">        text = <span class="string">&quot;&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(name == <span class="string">&quot;equals&quot;</span>)&#123;<span class="comment">//开始计算，若出现错误返回ERROR</span></span><br><span class="line">        <span class="type">double</span> answer = <span class="built_in">Expression</span>(text.<span class="built_in">toStdString</span>()).<span class="built_in">val</span>();</span><br><span class="line">        <span class="keyword">if</span>(answer == Expression::ERROR)</span><br><span class="line">        &#123;</span><br><span class="line">            le-&gt;<span class="built_in">setText</span>(<span class="string">&quot;ERROR&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        text = QString::<span class="built_in">fromStdString</span>(std::<span class="built_in">to_string</span>(answer));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(name == <span class="string">&quot;DEL&quot;</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(name.<span class="built_in">size</span>() == <span class="number">0</span>) <span class="keyword">return</span>;</span><br><span class="line">        std::string tmp = text.<span class="built_in">toStdString</span>();</span><br><span class="line">        tmp.<span class="built_in">erase</span>(tmp.<span class="built_in">end</span>()<span class="number">-1</span>);</span><br><span class="line">        text = QString::<span class="built_in">fromStdString</span>(tmp);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(name == <span class="string">&quot;dot&quot;</span>)&#123;</span><br><span class="line">        text += <span class="string">&quot;.&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(name == <span class="string">&quot;lb&quot;</span>)&#123;</span><br><span class="line">        text += <span class="string">&quot;(&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(name == <span class="string">&quot;rb&quot;</span>) &#123;</span><br><span class="line">        text += <span class="string">&quot;)&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    le-&gt;<span class="built_in">setText</span>(text);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>附上expression.h的内容：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// Created by ROG on 2021/9/28.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">ifndef</span> CALC_EXPRESSION_H</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> CALC_EXPRESSION_H</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;QDebug&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> std::stack;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Expression</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line"></span><br><span class="line">    <span class="type">static</span> <span class="keyword">constexpr</span> <span class="type">int</span> MAXN = <span class="number">101</span>;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> len;</span><br><span class="line">    <span class="type">char</span> s[MAXN];</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">static</span> <span class="keyword">constexpr</span> <span class="type">double</span> ERROR = <span class="number">-2e9</span>;</span><br><span class="line">    <span class="built_in">Expression</span>()&#123;&#125;</span><br><span class="line">    <span class="built_in">Expression</span>(std::string str)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;str.<span class="built_in">size</span>();i++)</span><br><span class="line">            s[i+<span class="number">1</span>] = str[i];</span><br><span class="line">        s[str.<span class="built_in">size</span>()+<span class="number">1</span>] = <span class="string">&#x27;\0&#x27;</span>;</span><br><span class="line">        len = str.<span class="built_in">size</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">short</span> <span class="title">ord</span><span class="params">(<span class="type">char</span> ch)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(ch == <span class="string">&#x27;(&#x27;</span> || ch == <span class="string">&#x27;)&#x27;</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span>(ch == <span class="string">&#x27;+&#x27;</span> || ch == <span class="string">&#x27;-&#x27;</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span>(ch == <span class="string">&#x27;*&#x27;</span> || ch == <span class="string">&#x27;/&#x27;</span>) <span class="keyword">return</span> <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span>(ch == <span class="string">&#x27;~&#x27;</span>) <span class="keyword">return</span> <span class="number">3</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isNum</span><span class="params">(<span class="type">char</span> ch)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> ch&gt;=<span class="string">&#x27;0&#x27;</span> &amp;&amp; ch&lt;=<span class="string">&#x27;9&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isOperator</span><span class="params">(<span class="type">char</span> ch)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> ch == <span class="string">&#x27;+&#x27;</span> || ch == <span class="string">&#x27;-&#x27;</span> || ch == <span class="string">&#x27;*&#x27;</span> || ch == <span class="string">&#x27;/&#x27;</span> || ch == <span class="string">&#x27;~&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">Check</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="type">int</span> p = <span class="number">0</span>,cnt = <span class="number">0</span>;</span><br><span class="line">        <span class="type">char</span> *str = <span class="keyword">new</span> <span class="type">char</span>[len&lt;&lt;<span class="number">1</span>];</span><br><span class="line">        stack&lt;<span class="type">char</span>&gt; S;</span><br><span class="line">        s[<span class="number">0</span>] = <span class="string">&#x27;+&#x27;</span>;</span><br><span class="line">        <span class="keyword">while</span>(s[++p] != <span class="string">&#x27;\0&#x27;</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(s[p] == <span class="string">&#x27;(&#x27;</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                S.<span class="built_in">push</span>(<span class="string">&#x27;(&#x27;</span>);</span><br><span class="line">                str[++cnt] = <span class="string">&#x27;(&#x27;</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(s[p] == <span class="string">&#x27;)&#x27;</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(S.<span class="built_in">empty</span>()) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">                <span class="keyword">else</span> S.<span class="built_in">pop</span>();</span><br><span class="line">                str[++cnt] = <span class="string">&#x27;)&#x27;</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(s[p] == <span class="string">&#x27;-&#x27;</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(p == <span class="number">1</span> || <span class="built_in">isOperator</span>(s[p<span class="number">-1</span>]) || str[p<span class="number">-1</span>] == <span class="string">&#x27;(&#x27;</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    str[++cnt] = <span class="string">&#x27;~&#x27;</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> str[++cnt] = <span class="string">&#x27;-&#x27;</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(<span class="built_in">isOperator</span>(s[p]) &amp;&amp; <span class="built_in">isOperator</span>(s[p<span class="number">-1</span>])) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(<span class="built_in">isNum</span>(s[p]) || s[p] == <span class="string">&#x27;.&#x27;</span> || <span class="built_in">isOperator</span>(s[p]))</span><br><span class="line">                str[++cnt] = s[p];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(!S.<span class="built_in">empty</span>()) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=cnt;i++)</span><br><span class="line">            s[i] = str[i];</span><br><span class="line">        s[cnt+<span class="number">1</span>] = <span class="string">&#x27;\0&#x27;</span>;</span><br><span class="line">        len = cnt;</span><br><span class="line">        <span class="keyword">delete</span>[] str;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">char</span> *<span class="title">Transform</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="type">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">        stack&lt;<span class="type">char</span>&gt; st;</span><br><span class="line">        <span class="type">char</span> *exp = <span class="keyword">new</span> <span class="type">char</span>[len&lt;&lt;<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=len;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">isNum</span>(s[i<span class="number">-1</span>]) &amp;&amp; !<span class="built_in">isNum</span>(s[i]) &amp;&amp; s[i] != <span class="string">&#x27;.&#x27;</span>) exp[++cnt] = <span class="string">&#x27;#&#x27;</span>;</span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">isNum</span>(s[i]))</span><br><span class="line">                exp[++cnt] = s[i];</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(s[i] == <span class="string">&#x27;.&#x27;</span>) exp[++cnt] = s[i];</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(s[i] == <span class="string">&#x27;(&#x27;</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                st.<span class="built_in">push</span>(<span class="string">&#x27;(&#x27;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(s[i] == <span class="string">&#x27;)&#x27;</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">while</span>(st.<span class="built_in">top</span>() != <span class="string">&#x27;(&#x27;</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    exp[++cnt] = st.<span class="built_in">top</span>();</span><br><span class="line">                    st.<span class="built_in">pop</span>();</span><br><span class="line">                &#125;</span><br><span class="line">                st.<span class="built_in">pop</span>();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(<span class="built_in">isOperator</span>(s[i]))</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">while</span>(!st.<span class="built_in">empty</span>())</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">if</span>(<span class="built_in">ord</span>(s[i])&gt;<span class="built_in">ord</span>(st.<span class="built_in">top</span>()) || s[i] == <span class="string">&#x27;~&#x27;</span>)</span><br><span class="line">                    &#123;</span><br><span class="line">                        st.<span class="built_in">push</span>(s[i]);</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">else</span></span><br><span class="line">                    &#123;</span><br><span class="line">                        exp[++cnt] = st.<span class="built_in">top</span>();</span><br><span class="line">                        st.<span class="built_in">pop</span>();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span>(st.<span class="built_in">empty</span>()) st.<span class="built_in">push</span>(s[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">isNum</span>(s[len])) exp[++cnt] = <span class="string">&#x27;#&#x27;</span>;</span><br><span class="line">        <span class="keyword">while</span>(!st.<span class="built_in">empty</span>())</span><br><span class="line">        &#123;</span><br><span class="line">            exp[++cnt] = st.<span class="built_in">top</span>();</span><br><span class="line">            st.<span class="built_in">pop</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        exp[++cnt] = <span class="string">&#x27;\0&#x27;</span>;</span><br><span class="line">        <span class="keyword">return</span> exp;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">double</span> <span class="title">val</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="type">bool</span> check = <span class="built_in">Check</span>();</span><br><span class="line">        <span class="keyword">if</span>(!check) <span class="keyword">return</span> ERROR;</span><br><span class="line">        <span class="type">char</span> *exp = <span class="built_in">Transform</span>();</span><br><span class="line">        <span class="type">char</span> p = <span class="number">0</span>;</span><br><span class="line">        <span class="type">double</span> val = <span class="number">0</span>;</span><br><span class="line">        <span class="type">double</span> dval = <span class="number">0</span>;</span><br><span class="line">        <span class="type">double</span> base = <span class="number">10</span>;</span><br><span class="line">        <span class="type">bool</span> number = <span class="literal">false</span>;</span><br><span class="line">        stack&lt;<span class="type">double</span>&gt; st;</span><br><span class="line">        <span class="keyword">while</span>(exp[++p] != <span class="string">&#x27;\0&#x27;</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(exp[p]&gt;=<span class="string">&#x27;0&#x27;</span> &amp;&amp; exp[p]&lt;=<span class="string">&#x27;9&#x27;</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(number)</span><br><span class="line">                &#123;</span><br><span class="line">                    dval += (exp[p]-<span class="string">&#x27;0&#x27;</span>)/base;</span><br><span class="line">                    base *= <span class="number">10</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> val = val*<span class="number">10</span>+exp[p]-<span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(exp[p] == <span class="string">&#x27;.&#x27;</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                number = <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(<span class="built_in">isOperator</span>(exp[p]))</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="type">double</span> b = st.<span class="built_in">top</span>();</span><br><span class="line">                st.<span class="built_in">pop</span>();</span><br><span class="line">                <span class="type">double</span> a;</span><br><span class="line">                <span class="keyword">switch</span>(exp[p])</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">case</span> <span class="string">&#x27;+&#x27;</span>:</span><br><span class="line">                        a = st.<span class="built_in">top</span>();</span><br><span class="line">                        st.<span class="built_in">pop</span>();</span><br><span class="line">                        st.<span class="built_in">push</span>(a+b);</span><br><span class="line"></span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    <span class="keyword">case</span> <span class="string">&#x27;-&#x27;</span>:</span><br><span class="line">                        a = st.<span class="built_in">top</span>();</span><br><span class="line">                        st.<span class="built_in">pop</span>();</span><br><span class="line">                        st.<span class="built_in">push</span>(a-b);</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    <span class="keyword">case</span> <span class="string">&#x27;*&#x27;</span>:</span><br><span class="line">                        a = st.<span class="built_in">top</span>();</span><br><span class="line">                        st.<span class="built_in">pop</span>();</span><br><span class="line">                        st.<span class="built_in">push</span>(a*b);</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    <span class="keyword">case</span> <span class="string">&#x27;/&#x27;</span>:</span><br><span class="line">                        a = st.<span class="built_in">top</span>();</span><br><span class="line">                        st.<span class="built_in">pop</span>();</span><br><span class="line">                        <span class="keyword">if</span>(b == <span class="number">0</span>)</span><br><span class="line">                        &#123;</span><br><span class="line">                            <span class="keyword">return</span> ERROR;</span><br><span class="line">                        &#125;</span><br><span class="line">                        st.<span class="built_in">push</span>(a/b);</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    <span class="keyword">case</span> <span class="string">&#x27;~&#x27;</span>:</span><br><span class="line">                        st.<span class="built_in">push</span>(-b);</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(exp[p] == <span class="string">&#x27;#&#x27;</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                st.<span class="built_in">push</span>(val+dval);</span><br><span class="line">                val = <span class="number">0</span>;</span><br><span class="line">                dval = <span class="number">0</span>;</span><br><span class="line">                base = <span class="number">10</span>;</span><br><span class="line">                number = <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">delete</span> exp;</span><br><span class="line">        <span class="keyword">return</span> st.<span class="built_in">top</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span> <span class="comment">//CALC_EXPRESSION_H</span></span></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="在Qt-Designer中把按钮连接到函数："><a href="#在Qt-Designer中把按钮连接到函数：" class="headerlink" title="在Qt Designer中把按钮连接到函数："></a>在Qt Designer中把按钮连接到函数：</h1><p>（Clion里似乎与Qt Creator环境中步骤不相同）<br>点击上方”编辑信号&#x2F;槽”:<br><img src="https://img-blog.csdnimg.cn/095880669cb44c778ba6449fee29b3d5.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>点击按钮并把出来的连线拖到面板上：<br><img src="https://img-blog.csdnimg.cn/9087fc9ed1214e0299fffd56e3ecf171.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_15,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>分别点击clicked()和刚才编写的函数：<br><img src="https://img-blog.csdnimg.cn/5e580e9ef47f473099bf841be377c25d.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_17,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"></p>
+<p>对所有按钮重复上述步骤。</p>
+<h1 id="稍微修改main-cpp"><a href="#稍微修改main-cpp" class="headerlink" title="稍微修改main.cpp:"></a>稍微修改main.cpp:</h1><p><img src="https://img-blog.csdnimg.cn/737a41b345d64cb0976da8db9dec2f4f.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"></p>
+<h1 id="运行程序"><a href="#运行程序" class="headerlink" title="运行程序"></a>运行程序</h1><p><img src="https://img-blog.csdnimg.cn/e27cbc72868f47ab83cf7139d4138c93.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_11,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"></p>
+<h1 id="打包程序"><a href="#打包程序" class="headerlink" title="打包程序"></a>打包程序</h1><p>若想将将程序打包成release版，电脑上不需要有Qt环境也能运行，需要添加release配置：<br>点击文件→设置→构建、执行、部署→CMake→”+”,会自动生成一个release配置。<br><img src="https://img-blog.csdnimg.cn/0abeb6ff7a424fc881779c8866d6d3d6.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16" alt="![在这里插入图片描述](https://img-blog.csdnimg.cn/7be6c5bd74aa4c14bc60355b14b8aed2.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16"><br>在右上角调为release：<br><img src="https://img-blog.csdnimg.cn/5edb097365b042c895f9ca0d72daf505.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_16,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>再次运行程序，在工程文件夹的cmake-build-release文件夹下找到calc.exe：<br><img src="https://img-blog.csdnimg.cn/f0474ac8380e4a5992f2b0dfe5700286.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>将exe文件复制到另一个想要打包到的路径中，如Desktop&#x2F;calc中：<br><img src="https://img-blog.csdnimg.cn/af3a22d7384041118473ab768d0b2b4d.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>在应用中找到Qt的命令行程序：<br><img src="https://img-blog.csdnimg.cn/4673eea6868c423cbe42f410805b6f3e.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_11,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>输入cd &#x2F;d [路径]，进入刚才新建的文件夹：<br><img src="https://img-blog.csdnimg.cn/ebd7c6b1eb594d24a3d7d15221b62165.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>输入windeployqt 程序名.exe –release命令，进行打包：<br>（若不加–release，有可能打包出debug版本，一个计算器将近1G）<br><img src="https://img-blog.csdnimg.cn/4b03f78965114285aab4a99dd0aa3c6a.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>现在程序可以在无Qt环境中运行了。<br><img src="https://img-blog.csdnimg.cn/8cce68b23cd94760b719a2575fbe64af.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/10/04/LuoguCode/" rel="prev" title="python requests库爬取洛谷代码总行数">
+      <i class="fa fa-chevron-left"></i> python requests库爬取洛谷代码总行数
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/11/29/HITDS2021/" rel="next" title="哈工大2021年秋季学期数据结构期末试题">
+      哈工大2021年秋季学期数据结构期末试题 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%B0%E5%BB%BA%E9%A1%B9%E7%9B%AE"><span class="nav-number">1.</span> <span class="nav-text">新建项目</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%B0%E5%BB%BAQt-UI%E7%B1%BB"><span class="nav-number">2.</span> <span class="nav-text">新建Qt UI类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%94%A8Qt-Designer%E5%AF%B9%E7%95%8C%E9%9D%A2%E8%BF%9B%E8%A1%8C%E5%B8%83%E5%B1%80"><span class="nav-number">3.</span> <span class="nav-text">用Qt Designer对界面进行布局</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9C%A8-h%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B7%BB%E5%8A%A0slots-%E5%9C%A8-cpp%E6%96%87%E4%BB%B6%E4%B8%AD%E7%BC%96%E5%86%99%E5%A4%84%E7%90%86%E6%8C%89%E9%94%AE%E7%9A%84%E5%87%BD%E6%95%B0"><span class="nav-number">4.</span> <span class="nav-text">在.h文件中添加slots,在.cpp文件中编写处理按键的函数:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9C%A8Qt-Designer%E4%B8%AD%E6%8A%8A%E6%8C%89%E9%92%AE%E8%BF%9E%E6%8E%A5%E5%88%B0%E5%87%BD%E6%95%B0%EF%BC%9A"><span class="nav-number">5.</span> <span class="nav-text">在Qt Designer中把按钮连接到函数：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A8%8D%E5%BE%AE%E4%BF%AE%E6%94%B9main-cpp"><span class="nav-number">6.</span> <span class="nav-text">稍微修改main.cpp:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E7%A8%8B%E5%BA%8F"><span class="nav-number">7.</span> <span class="nav-text">运行程序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%89%93%E5%8C%85%E7%A8%8B%E5%BA%8F"><span class="nav-number">8.</span> <span class="nav-text">打包程序</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Castria"
+      src="/images/icon.jpg">
+  <p class="site-author-name" itemprop="name">Castria</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Castria-cn" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Castria-cn" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/1564464568" title="QQ → 1564464568"><i class="fa fa-fw fa-qq"></i>QQ</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Castria</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
