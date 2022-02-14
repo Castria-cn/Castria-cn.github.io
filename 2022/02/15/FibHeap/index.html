@@ -20,28 +20,46 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Castria的博客">
-<meta property="og:url" content="http://example.com/index.html">
+  <meta name="description" content="本文改编自《算法导论》第三版第19章：斐波那契堆。文中代码为书中伪代码的C++实现，如有疏漏还请指出。 1.斐波那契堆的结构斐波那契堆是一种可并堆，它支持以下操作：$(1)$在$O(1)$时间内插入元素、获取最小值、合并两个斐波那契堆、减小元素键值；$(2)$在$O(logn)$时间内删除元素。斐波那契堆的平摊复杂度比其他可并堆（左偏树&#x2F;二项队列）要优，但时空常数大且实现复杂度高，在实际">
+<meta property="og:type" content="article">
+<meta property="og:title" content="斐波那契堆的C++实现">
+<meta property="og:url" content="http://example.com/2022/02/15/FibHeap/index.html">
 <meta property="og:site_name" content="Castria的博客">
+<meta property="og:description" content="本文改编自《算法导论》第三版第19章：斐波那契堆。文中代码为书中伪代码的C++实现，如有疏漏还请指出。 1.斐波那契堆的结构斐波那契堆是一种可并堆，它支持以下操作：$(1)$在$O(1)$时间内插入元素、获取最小值、合并两个斐波那契堆、减小元素键值；$(2)$在$O(logn)$时间内删除元素。斐波那契堆的平摊复杂度比其他可并堆（左偏树&#x2F;二项队列）要优，但时空常数大且实现复杂度高，在实际">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/955340a27c0c44d5b82b9d765fddcaf9.png?x-oss-process=image,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ2FzdHJpYQ==,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/0500b193210740389aa130ee209a7ad5.png?x-oss-process=image,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ2FzdHJpYQ==,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/4b30678e93b1417bbc9cd001ead4c2e7.png?x-oss-process=image,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ2FzdHJpYQ==,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/edbe64c44a5940ed8396c92c2db21c0c.png?x-oss-process=image,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ2FzdHJpYQ==,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2456d35d7e25468e84c10b41b9ec09d4.png?x-oss-process=image,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ2FzdHJpYQ==,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/a8fa4d637a6c4b79bfa420125578968f.png?x-oss-process=image,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ2FzdHJpYQ==,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/e33395d9ad844bfb896553194d3bb06b.png?x-oss-process=image,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ2FzdHJpYQ==,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/bbed1c92c33b48f785561ce28a297c72.png?x-oss-process=image,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ2FzdHJpYQ==,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/7df001ffd2014444a68de2e8ed77a288.png?x-oss-process=image,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ2FzdHJpYQ==,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/d040ff9fe46743d0b2c83c8a3ecdfe35.png?x-oss-process=image,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ2FzdHJpYQ==,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/eb3a9b803f2f4b72bcbb0d6d4a8401f9.png?x-oss-process=image,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ2FzdHJpYQ==,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20e32ede0a7645ff9a0a925d632e0cb4.png?x-oss-process=image,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ2FzdHJpYQ==,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/ebe030d3092d492f9ea341be53fd3560.png?x-oss-process=image,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ2FzdHJpYQ==,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="article:published_time" content="2022-02-14T17:31:22.000Z">
+<meta property="article:modified_time" content="2022-02-14T17:32:28.518Z">
 <meta property="article:author" content="Castria">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/955340a27c0c44d5b82b9d765fddcaf9.png?x-oss-process=image,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ2FzdHJpYQ==,size_20,color_FFFFFF,t_70,g_se,x_16">
 
-<link rel="canonical" href="http://example.com/">
+<link rel="canonical" href="http://example.com/2022/02/15/FibHeap/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>Castria的博客</title>
+  <title>斐波那契堆的C++实现 | Castria的博客</title>
   
 
 
@@ -139,9 +157,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
@@ -157,10 +176,9 @@
       <meta itemprop="name" content="Castria的博客">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/02/15/FibHeap/" class="post-title-link" itemprop="url">斐波那契堆的C++实现</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          斐波那契堆的C++实现
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -174,6 +192,13 @@
             </span>
 
           
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
 
         </div>
       </header>
@@ -184,7 +209,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>本文改编自《算法导论》第三版第19章：斐波那契堆。文中代码为书中伪代码的C++实现，如有疏漏还请指出。</p>
+        <p>本文改编自《算法导论》第三版第19章：斐波那契堆。文中代码为书中伪代码的C++实现，如有疏漏还请指出。</p>
 <h1 id="1-斐波那契堆的结构"><a href="#1-斐波那契堆的结构" class="headerlink" title="1.斐波那契堆的结构"></a>1.斐波那契堆的结构</h1><p>斐波那契堆是一种可并堆，它支持以下操作：<br>$(1)$在$O(1)$时间内插入元素、获取最小值、合并两个斐波那契堆、减小元素键值；<br>$(2)$在$O(logn)$时间内删除元素。<br>斐波那契堆的平摊复杂度比其他可并堆（左偏树&#x2F;二项队列）要优，但时空常数大且实现复杂度高，在实际中并不非常适用。<br>斐波那契堆有下图所示的结构（图示为小根堆）：<br><img src="https://img-blog.csdnimg.cn/955340a27c0c44d5b82b9d765fddcaf9.png?x-oss-process=image,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ2FzdHJpYQ==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>可以看到斐波那契堆仍然满足小根堆性质，与二叉堆不同的是，斐波那契堆的第一层由双向循环链表组成(23和24的连接没有画出)，并且每一个结点的孩子集合也由双向循环链表维护。（如：3的孩子为{18,53,38}，这三个结点在一个双向循环链表中，3只存指向其中一个的指针）<br>每个结点有如下属性（成员变量）：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">node</span></span><br><span class="line">&#123;</span><br><span class="line">	T data;</span><br><span class="line">	<span class="type">bool</span> mark;</span><br><span class="line">	<span class="type">int</span> degree;</span><br><span class="line">	node *left,*right;</span><br><span class="line">	node *child,*parent;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>$data:$数据域；<br>$mark:$标记，$mark &#x3D;&#x3D; true$当且仅当某个结点成为某个节点的子结点后还失去了某儿子结点，黑色节点表示$mark &#x3D; true$；<br>$degree:$孩子个数；<br>$left,right:$左右兄弟；<br>$child:$任意的一个该结点孩子；<br>$parent:$该结点的父节点。<br>每一层结点由双向循环链表构成，为了实现方便在程序中引入表头。</p>
@@ -244,514 +269,30 @@
 <p><strong>定理</strong>：$D(n)\le \lfloor logn \rfloor.($$log$以$2$为底$)$</p>
 <p>&lt;证明&gt;现在证明$s_k&gt;2^{k-1}.$施归纳于$k$：<br>$(1)$$k&#x3D;0,1$时,不等式显然成立。<br>$(2)$假设不等式在$k$时成立，即$s_k&gt;2^{k-1},$对于$k+1$个度的结点，它显然至少需要两个大小为$s_k$的结点来构成，因此$s_{k+1}\ge 2s_k &gt;2^k,$结论成立。<br>那么对于任意结点$x,n\ge size(x) \ge s_k&gt;2^k,k&lt;logn.$由于$k$是整数，$k\le \lfloor logn \rfloor.$因此$D(n)&#x3D;max{k}\le \lfloor logn \rfloor.$</p>
 <h1 id="4-完整代码"><a href="#4-完整代码" class="headerlink" title="4.完整代码"></a>4.完整代码</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">FibHeap</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">private</span>:</span><br><span class="line">	<span class="keyword">struct</span> <span class="title class_">node</span></span><br><span class="line">	&#123;</span><br><span class="line">		T data;</span><br><span class="line">		<span class="type">bool</span> mark;</span><br><span class="line">		<span class="type">int</span> degree;</span><br><span class="line">		node *left,*right;</span><br><span class="line">		node *child,*parent;</span><br><span class="line">		<span class="built_in">node</span>()</span><br><span class="line">		&#123;</span><br><span class="line">			mark = <span class="literal">false</span>;</span><br><span class="line">			degree = <span class="number">0</span>;</span><br><span class="line">			child = parent = <span class="literal">nullptr</span>;</span><br><span class="line">			left = right = <span class="keyword">this</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;;</span><br><span class="line">	<span class="type">int</span> size;</span><br><span class="line">	node *min;</span><br><span class="line">	node *head;</span><br><span class="line">	T MIN_VALUE;</span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">LeftInsert</span><span class="params">(node *base, node *tmp)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		tmp-&gt;left = base-&gt;left;</span><br><span class="line">		tmp-&gt;right = base;</span><br><span class="line">		base-&gt;left-&gt;right = tmp;</span><br><span class="line">		base-&gt;left = tmp;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">link</span><span class="params">(node *y,node *x)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		y-&gt;left-&gt;right = y-&gt;right;</span><br><span class="line">		y-&gt;right-&gt;left = y-&gt;left;</span><br><span class="line">		y-&gt;parent = x;</span><br><span class="line">		<span class="keyword">if</span>(x-&gt;child == <span class="literal">nullptr</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			x-&gt;child = y;</span><br><span class="line">			y-&gt;left = y-&gt;right = y;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="built_in">LeftInsert</span>(x-&gt;child, y);</span><br><span class="line">		x-&gt;degree++;</span><br><span class="line">		y-&gt;mark = <span class="literal">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">Consolidate</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123; </span><br><span class="line">		<span class="type">int</span> Dn = (<span class="type">int</span>)<span class="built_in">log2</span>(size)+<span class="number">1</span>;</span><br><span class="line">		node **nodes = <span class="keyword">new</span> node*[Dn];</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; Dn; i++)</span><br><span class="line">			nodes[i] = <span class="literal">nullptr</span>;</span><br><span class="line">		node *ptr = head-&gt;right,*nxt;</span><br><span class="line">		<span class="keyword">do</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="type">int</span> d;</span><br><span class="line">			node *x,*y;</span><br><span class="line">			x = ptr;</span><br><span class="line">			<span class="keyword">if</span>(x == head) <span class="keyword">continue</span>; </span><br><span class="line">			d = x-&gt;degree;</span><br><span class="line">			nxt = ptr-&gt;right;</span><br><span class="line">			<span class="keyword">while</span>(nodes[d] != <span class="literal">nullptr</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				y = nodes[d];</span><br><span class="line">				<span class="keyword">if</span>(x-&gt;data &gt; y-&gt;data)</span><br><span class="line">					std::<span class="built_in">swap</span>(x, y);</span><br><span class="line">				<span class="built_in">link</span>(y,x);</span><br><span class="line">				nodes[d] = <span class="literal">nullptr</span>;</span><br><span class="line">				d++;</span><br><span class="line">			&#125;</span><br><span class="line">			nodes[d] = x;</span><br><span class="line">			ptr = nxt;</span><br><span class="line">		&#125;<span class="keyword">while</span>(ptr != head);</span><br><span class="line">		min = <span class="literal">nullptr</span>;</span><br><span class="line">		head-&gt;left = head-&gt;right = head;</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; Dn; i++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span>(nodes[i] != <span class="literal">nullptr</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">if</span>(min == <span class="literal">nullptr</span>)</span><br><span class="line">				&#123;</span><br><span class="line">					min = nodes[i];</span><br><span class="line">					<span class="built_in">LeftInsert</span>(head,min);</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">else</span></span><br><span class="line">				&#123;</span><br><span class="line">					<span class="built_in">LeftInsert</span>(head, nodes[i]);</span><br><span class="line">					<span class="keyword">if</span>(nodes[i]-&gt;data &lt; min-&gt;data)</span><br><span class="line">						min = nodes[i];</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">FibHeap</span>()</span><br><span class="line">	&#123;</span><br><span class="line">		size = <span class="number">0</span>;</span><br><span class="line">		min = <span class="literal">nullptr</span>;</span><br><span class="line">		head = <span class="keyword">new</span> node;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">FibHeap</span>(T MIN_VALUE)</span><br><span class="line">	&#123;</span><br><span class="line">		size = <span class="number">0</span>;</span><br><span class="line">		min = <span class="literal">nullptr</span>;</span><br><span class="line">		head = <span class="keyword">new</span> node;</span><br><span class="line">		<span class="keyword">this</span>-&gt;MIN_VALUE = MIN_VALUE;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function">T <span class="title">GetMin</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> min-&gt;data;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="type">int</span> <span class="title">Size</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> size;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">Insert</span><span class="params">(T data)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		node *tmp = <span class="keyword">new</span> node;</span><br><span class="line">		tmp-&gt;degree = <span class="number">0</span>;</span><br><span class="line">		tmp-&gt;data = data;</span><br><span class="line">		tmp-&gt;parent = tmp-&gt;child = <span class="literal">nullptr</span>;</span><br><span class="line">		tmp-&gt;left = tmp-&gt;right = tmp;</span><br><span class="line">		tmp-&gt;mark = <span class="literal">false</span>;</span><br><span class="line">		<span class="keyword">if</span>(min == <span class="literal">nullptr</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			min = tmp;</span><br><span class="line">			<span class="built_in">LeftInsert</span>(head, min);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">LeftInsert</span>(min, tmp);</span><br><span class="line">			<span class="keyword">if</span>(data &lt; min-&gt;data)</span><br><span class="line">				min = tmp;</span><br><span class="line">		&#125;</span><br><span class="line">		size++;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function">FibHeap&lt;T&gt; <span class="title">Merge</span><span class="params">(FibHeap&lt;T&gt; H2)</span><span class="comment">//TOCHECK</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		node *ptr = head-&gt;right;</span><br><span class="line">		<span class="keyword">do</span></span><br><span class="line">		&#123;</span><br><span class="line">			H2.<span class="built_in">Insert</span>(ptr-&gt;data);</span><br><span class="line">			ptr = ptr-&gt;right;</span><br><span class="line">		&#125;<span class="keyword">while</span>(ptr != head);</span><br><span class="line">		<span class="keyword">if</span>(H2.min == <span class="literal">nullptr</span> || (min != <span class="literal">nullptr</span> &amp;&amp; min-&gt;data &lt; H2.<span class="built_in">GetMin</span>()))</span><br><span class="line">			H2.min = min;</span><br><span class="line">		<span class="keyword">return</span> H2;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function">T <span class="title">DeleteMin</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		T ret = min-&gt;data;</span><br><span class="line">		node *ptr = min;</span><br><span class="line">		<span class="keyword">if</span>(ptr != <span class="literal">nullptr</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			node *tmp = min-&gt;child,*nxt;</span><br><span class="line">			<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; min-&gt;degree; i++)</span><br><span class="line">			&#123;</span><br><span class="line">				nxt = tmp-&gt;right;</span><br><span class="line">				<span class="built_in">LeftInsert</span>(head, tmp);</span><br><span class="line">				tmp = nxt;</span><br><span class="line">			&#125;</span><br><span class="line">			ptr-&gt;left-&gt;right = ptr-&gt;right;</span><br><span class="line">			ptr-&gt;right-&gt;left = ptr-&gt;left;</span><br><span class="line"></span><br><span class="line">			<span class="keyword">if</span>(ptr == ptr-&gt;right)</span><br><span class="line">				min = <span class="literal">nullptr</span>;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">			&#123;</span><br><span class="line">				min = min-&gt;right;</span><br><span class="line">				<span class="keyword">if</span>(min == head) min = min-&gt;right;</span><br><span class="line">				<span class="built_in">Consolidate</span>();</span><br><span class="line">			&#125;</span><br><span class="line">			size--;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> ret;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">Cut</span><span class="params">(node *x, node *y)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(y-&gt;degree == <span class="number">1</span>)</span><br><span class="line">			y-&gt;child = <span class="literal">nullptr</span>;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			x-&gt;left-&gt;right = x-&gt;right;</span><br><span class="line">			x-&gt;right-&gt;left = x-&gt;left;</span><br><span class="line">		&#125;</span><br><span class="line">		y-&gt;degree--;</span><br><span class="line">		<span class="built_in">LeftInsert</span>(head, x);</span><br><span class="line">		x-&gt;parent = <span class="literal">nullptr</span>;</span><br><span class="line">		x-&gt;mark = <span class="literal">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">CascadingCut</span><span class="params">(node *y)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		node *z = y-&gt;parent;</span><br><span class="line">		<span class="keyword">if</span>(z != <span class="literal">nullptr</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span>(y-&gt;mark == <span class="literal">false</span>)</span><br><span class="line">				y-&gt;mark = <span class="literal">true</span>;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">			&#123;</span><br><span class="line">				<span class="built_in">Cut</span>(y,z);</span><br><span class="line">				<span class="built_in">CascadingCut</span>(z);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">DecreaseKey</span><span class="params">(node *x, T key)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(key &gt;= x-&gt;data) <span class="keyword">return</span>;</span><br><span class="line">		x-&gt;data = key;</span><br><span class="line">		</span><br><span class="line">		node *y = x-&gt;parent;</span><br><span class="line">		<span class="keyword">if</span>(y != <span class="literal">nullptr</span> &amp;&amp; x-&gt;data &lt; y-&gt;data)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">Cut</span>(x,y);</span><br><span class="line">			<span class="built_in">CascadingCut</span>(y);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(x-&gt;data &lt; min-&gt;data)</span><br><span class="line">			min = x;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">Delete</span><span class="params">(node *x)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="built_in">DecreaseKey</span>(x,MIN_VALUE);</span><br><span class="line">		<span class="built_in">DeleteMin</span>();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/02/12/SkipList/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/icon.jpg">
-      <meta itemprop="name" content="Castria">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Castria的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/02/12/SkipList/" class="post-title-link" itemprop="url">跳表的C++实现</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2022-02-12 01:03:45 / 修改时间：19:30:36" itemprop="dateCreated datePublished" datetime="2022-02-12T01:03:45+08:00">2022-02-12</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>跳表(Skip List)是在链表基础上进行改进的一种有序的数据结构，它为了便于查找，在插入过程中随机地将一些元素提升为高度为1~r的索引，以此来加快之后的操作。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/02/12/SkipList/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
-    </div>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/02/12/PythonSocket/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/icon.jpg">
-      <meta itemprop="name" content="Castria">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Castria的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/02/12/PythonSocket/" class="post-title-link" itemprop="url">python实现简易聊天室程序</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2022-02-12 00:56:33 / 修改时间：19:30:59" itemprop="dateCreated datePublished" datetime="2022-02-12T00:56:33+08:00">2022-02-12</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>本文为计算机网络学习过程中随笔，程序如有bug或设计不当之处还请指正。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/02/12/PythonSocket/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/02/12/SkipList/" rel="prev" title="跳表的C++实现">
+      <i class="fa fa-chevron-left"></i> 跳表的C++实现
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
+    
   </article>
   
   
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/11/29/HITDS2021/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/icon.jpg">
-      <meta itemprop="name" content="Castria">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Castria的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/11/29/HITDS2021/" class="post-title-link" itemprop="url">哈工大2021年秋季学期数据结构期末试题</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-11-29 12:26:22" itemprop="dateCreated datePublished" datetime="2021-11-29T12:26:22+08:00">2021-11-29</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-02-12 19:33:51" itemprop="dateModified" datetime="2022-02-12T19:33:51+08:00">2022-02-12</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>因为考完试没有收演草纸，所以题中数据与考试差距不大。选项顺序可能略有差异；选择第5题希尔排序的序列数据是后编的；简答第3题B-树的插入序列顺序可能不同，但是考察的点是一样的。其他题的数据基本可以保证和原题一样。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/11/29/HITDS2021/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/16/QtCalc/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/icon.jpg">
-      <meta itemprop="name" content="Castria">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Castria的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/10/16/QtCalc/" class="post-title-link" itemprop="url">Clion环境Qt简单示例程序:计算器</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-10-16 20:38:40" itemprop="dateCreated datePublished" datetime="2021-10-16T20:38:40+08:00">2021-10-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-02-12 19:33:41" itemprop="dateModified" datetime="2022-02-12T19:33:41+08:00">2022-02-12</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>效果预览：<br><img src="https://img-blog.csdnimg.cn/719834cc20ed46d3ac0a92b35f69f640.png?x-oss-process=image,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5LiD54-t56eR6ZW_55Sy,size_11,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/10/16/QtCalc/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/04/LuoguCode/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/icon.jpg">
-      <meta itemprop="name" content="Castria">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Castria的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/10/04/LuoguCode/" class="post-title-link" itemprop="url">python requests库爬取洛谷代码总行数</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-10-04 17:06:21" itemprop="dateCreated datePublished" datetime="2021-10-04T17:06:21+08:00">2021-10-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-02-12 19:30:45" itemprop="dateModified" datetime="2022-02-12T19:30:45+08:00">2022-02-12</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>总体思路：根据个人的评测记录页（<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/record/list?user=...%EF%BC%89%EF%BC%8C%E8%8E%B7%E5%8F%96%E6%AF%8F%E9%81%93%E9%A2%98%E7%9A%84%E8%AF%84%E6%B5%8B%E7%BC%96%E5%8F%B7%EF%BC%8C%E5%86%8D%E8%BF%9B%E5%85%A5%E7%BC%96%E5%8F%B7%E9%A1%B5%E8%8E%B7%E5%8F%96%E4%BB%A3%E7%A0%81%E4%B8%AD%E6%8D%A2%E8%A1%8C%E7%AC%A6%E7%9A%84%E4%B8%AA%E6%95%B0%E8%BF%9B%E8%A1%8C%E7%B4%AF%E5%8A%A0%E3%80%82">https://www.luogu.com.cn/record/list?user=...），获取每道题的评测编号，再进入编号页获取代码中换行符的个数进行累加。</a></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/10/04/LuoguCode/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/09/12/KMP/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/icon.jpg">
-      <meta itemprop="name" content="Castria">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Castria的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/09/12/KMP/" class="post-title-link" itemprop="url">KMP字符串匹配算法</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-09-12 11:03:28" itemprop="dateCreated datePublished" datetime="2021-09-12T11:03:28+08:00">2021-09-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-02-12 19:30:17" itemprop="dateModified" datetime="2022-02-12T19:30:17+08:00">2022-02-12</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>字符串的模式匹配是以下的一种常见问题：给定字符串$s$(主串)和$t$(模式串)$(|s|&#x3D;n,|t|&#x3D;m,m\leq n)$，求$t$在$s$中第一次出现的位置。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/09/12/KMP/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/07/15/BinomialQueue/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/icon.jpg">
-      <meta itemprop="name" content="Castria">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Castria的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/07/15/BinomialQueue/" class="post-title-link" itemprop="url">二项队列介绍及其实现</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-07-15 22:30:27" itemprop="dateCreated datePublished" datetime="2021-07-15T22:30:27+08:00">2021-07-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-02-12 19:34:02" itemprop="dateModified" datetime="2022-02-12T19:34:02+08:00">2022-02-12</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>注：此博客改编自《数据结构与算法分析：C语言描述》中二项队列一节，如有设计不当之处还请指出。</p>
-<h1 id="二项队列的结构"><a href="#二项队列的结构" class="headerlink" title="二项队列的结构"></a>二项队列的结构</h1><p>二项队列(Binomial Queue)是一种可以实现：<br>$(1)$向其中添加元素；<br>$(2)$删除、获取其中的最小(最大)元素；<br>$(3)$合并两个二项队列 的数据结构。<br>和它具有相同功能的有左式堆(左偏树)(Leftist Heap)和斜堆(Skew Heap)。但是它们的所有操作都花费$O(logN)$时间，而二项队列的插入操作只需常数时间。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/07/15/BinomialQueue/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-
   
 
 
@@ -804,6 +345,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E5%A0%86%E7%9A%84%E7%BB%93%E6%9E%84"><span class="nav-number">1.</span> <span class="nav-text">1.斐波那契堆的结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E5%A0%86%E6%93%8D%E4%BD%9C%E5%8F%8A%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.</span> <span class="nav-text">2.斐波那契堆操作及实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1%E6%8F%92%E5%85%A5%E8%8A%82%E7%82%B9%EF%BC%9A"><span class="nav-number">2.1.</span> <span class="nav-text">2.1插入节点：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E5%A0%86"><span class="nav-number">2.2.</span> <span class="nav-text">2.2合并两个斐波那契堆</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3%E5%88%A0%E9%99%A4%E6%9C%80%E5%B0%8F%E7%BB%93%E7%82%B9"><span class="nav-number">2.3.</span> <span class="nav-text">2.3删除最小结点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Consolidate%E5%87%BD%E6%95%B0"><span class="nav-number">2.3.1.</span> <span class="nav-text">Consolidate函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4%E5%85%B3%E9%94%AE%E5%AD%97%E5%87%8F%E5%80%BC"><span class="nav-number">2.4.</span> <span class="nav-text">2.4关键字减值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-5%E5%88%A0%E9%99%A4%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">2.5.</span> <span class="nav-text">2.5删除关键字</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90"><span class="nav-number">3.</span> <span class="nav-text">3.时间复杂度分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1%E5%8A%BF%E5%87%BD%E6%95%B0"><span class="nav-number">3.1.</span> <span class="nav-text">3.1势函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2%E6%8F%92%E5%85%A5%E6%93%8D%E4%BD%9C"><span class="nav-number">3.2.</span> <span class="nav-text">3.2插入操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3%E6%9C%80%E5%B0%8F%E7%BB%93%E7%82%B9"><span class="nav-number">3.3.</span> <span class="nav-text">3.3最小结点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4%E5%88%A0%E9%99%A4%E6%9C%80%E5%B0%8F%E7%BB%93%E7%82%B9"><span class="nav-number">3.4.</span> <span class="nav-text">3.4删除最小结点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-5%E5%85%B3%E9%94%AE%E5%AD%97%E5%87%8F%E5%80%BC"><span class="nav-number">3.5.</span> <span class="nav-text">3.5关键字减值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-6%E5%88%A0%E9%99%A4%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">3.6.</span> <span class="nav-text">3.6删除关键字</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-%E6%9C%80%E5%A4%A7%E5%BA%A6%E6%95%B0%E7%9A%84%E7%95%8C"><span class="nav-number">4.</span> <span class="nav-text">4.最大度数的界</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-%E5%AE%8C%E6%95%B4%E4%BB%A3%E7%A0%81"><span class="nav-number">5.</span> <span class="nav-text">4.完整代码</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
