@@ -145,6 +145,69 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/26/LeetCode233/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/icon.jpg">
+      <meta itemprop="name" content="Castria">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Castria的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/03/26/LeetCode233/" class="post-title-link" itemprop="url">LeetCode 223.数字1的个数</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-03-26 20:35:21 / 修改时间：20:36:15" itemprop="dateCreated datePublished" datetime="2022-03-26T20:35:21+08:00">2022-03-26</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h1><p>给定一个正整数$n$，计算$[1,n]$中所有整数出现的$1$的个数之和。</p>
+<h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><p>设$n$的数字长度为$w$，$n&#x3D;d_wd_{w-1}…d_1.$考虑依次对这$w$位进行计数。若现在正考虑从右向左第$i$位：$v&#x3D;c_wc_{w-1}…c_{i+1}1c_{i-1}…1.$设左边的$w-i$位$(c_w…c_{i+1})$为$x$,右边的$i-1$位$(c_{i-1}…c_1)$为$y.$</p>
+<p>$(1)$当$x&lt;d_w…d_{i+1}$时，这时无论$y$是什么值$v$都不会大于$n$.因此此时$x$有$[0,d_w-1]$共$d_w$种选法，$y$有$[00…0,99…9]$共$10^{len(y)-1}$种选法。举个例子：当$n&#x3D;2022$时，要统计$i&#x3D;2$时（即十位为1的贡献），$c_3c_21c_1$中的$x&#x3D;c_3c_2&lt;20$时（共$20$种选法），$c_1$都有$[0,9]$共$10$种选法。因此$i&#x3D;2$的贡献为$20*10&#x3D;200$。<br>$(2)$当$x&#x3D;d_w…d_{i+1}$时，这时$y$不能超过$d_{i-1}…d_1.$因此此时贡献为$x$固定，$y$取$[00…0,d_{i-1}…d_1]$的方案数，即$(d_{i-1}…d_1)+1.$上面的例子中此情况的贡献为$9+1&#x3D;10$，因此$i&#x3D;2$时的总贡献为$(1)+(2)&#x3D;200+10&#x3D;210.$</p>
+<p>上面考虑的情况为$1&lt;i&lt;w$时的情况，当$i&#x3D;1$和$i&#x3D;w$时，情况类似：<br>$(a)$当$i&#x3D;1$时，仍有$(1)$情况中的贡献；仍需要判断当$d_1\ge1$时，$c_wc_{w-1}…c_21$也在$[1,n]$中，答案再加$1.$<br>$(b)$当$i&#x3D;w$时，当$d_w&#x3D;1$时(可以保证$d_w\ne0$)，$y$可以取到$[00…0,d_{i-1}…d_1]$中的任何值，贡献为$(d_{i-1}…d_1)+1.$否则$d_w\neq1,$此时没有限制，贡献为$10^{w-1}$.</p>
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">countDigitOne</span><span class="params">(<span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> sum = n;</span><br><span class="line">        <span class="type">int</span> len = <span class="built_in">ceil</span>(<span class="built_in">log10</span>(n + <span class="number">1</span>));<span class="comment">//即上面提到的w</span></span><br><span class="line">		</span><br><span class="line">		<span class="comment">//left=d[w]...d[i+1],right=d[i-1]...d[1]</span></span><br><span class="line">        <span class="type">int</span> left = n / <span class="number">10</span>;</span><br><span class="line">        <span class="type">int</span> right = <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> ten[] = &#123;<span class="number">1</span>,<span class="number">10</span>,<span class="number">100</span>,<span class="number">1000</span>,<span class="number">10000</span>,<span class="number">100000</span>,<span class="number">1000000</span>,<span class="number">10000000</span>,<span class="number">100000000</span>,<span class="number">1000000000</span>&#125;;<span class="comment">//存10的幂</span></span><br><span class="line"></span><br><span class="line">        <span class="type">char</span> buf[<span class="number">11</span>];</span><br><span class="line">        <span class="type">int</span> ptr = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">		<span class="comment">//先用sum把n存到数组中</span></span><br><span class="line">        <span class="keyword">while</span>(sum) &#123;</span><br><span class="line">            buf[++ptr] = (sum%<span class="number">10</span>) + <span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">            sum /= <span class="number">10</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= len; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(i == <span class="number">1</span>) &#123;</span><br><span class="line">                sum += left * ten[i - <span class="number">1</span>];</span><br><span class="line">                <span class="keyword">if</span>(buf[i] &gt;= <span class="string">&#x27;1&#x27;</span>) sum++; </span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(i == len) &#123;</span><br><span class="line">                <span class="keyword">if</span>(buf[i] == <span class="string">&#x27;1&#x27;</span>) sum += right + <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">else</span> sum += ten[i - <span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                sum += left * ten[i - <span class="number">1</span>];</span><br><span class="line">                <span class="keyword">if</span>(<span class="string">&#x27;1&#x27;</span> &lt; buf[i]) sum += ten[i - <span class="number">1</span>];</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(<span class="string">&#x27;1&#x27;</span> == buf[i]) sum += right + <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//更新left和right</span></span><br><span class="line">            left /= <span class="number">10</span>;</span><br><span class="line">            right += (buf[i] - <span class="string">&#x27;0&#x27;</span>) * ten[i - <span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/02/15/FibHeap/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -774,7 +837,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-count">9</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
