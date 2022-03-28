@@ -22,7 +22,7 @@
 
   <meta name="description" content="题意给定一个字符串 ($s$) 和一个字符模式 ($p$) ，实现一个支持 $’?’$ 和 $’*’$ 的通配符匹配。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Castria的博客">
+<meta property="og:title" content="LeetCode 44.数字1的个数">
 <meta property="og:url" content="http://example.com/2022/03/28/LeetCode44/index.html">
 <meta property="og:site_name" content="Castria的博客">
 <meta property="og:description" content="题意给定一个字符串 ($s$) 和一个字符模式 ($p$) ，实现一个支持 $’?’$ 和 $’*’$ 的通配符匹配。">
@@ -33,8 +33,8 @@
 <meta property="og:image" content="https://img-blog.csdnimg.cn/94851de6f286409dbe2e7fe17e659dc2.png?x-oss-process=image,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ2FzdHJpYQ==,size_20,color_FFFFFF,t_70,g_se,x_16">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/7763a341c89242faaac5a21138d9aac0.png">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/49cdc5d701ac43bea1ba3f0e009cffc4.png?x-oss-process=image,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ2FzdHJpYQ==,size_20,color_FFFFFF,t_70,g_se,x_16">
-<meta property="article:published_time" content="2022-03-28T07:45:28.399Z">
-<meta property="article:modified_time" content="2022-03-28T07:51:09.306Z">
+<meta property="article:published_time" content="2022-03-28T08:24:11.000Z">
+<meta property="article:modified_time" content="2022-03-28T08:24:17.315Z">
 <meta property="article:author" content="Castria">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://img-blog.csdnimg.cn/1cf4b94a03f645e99f945fb9471cfef9.png?x-oss-process=image,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ2FzdHJpYQ==,size_12,color_FFFFFF,t_70,g_se,x_16">
@@ -52,7 +52,7 @@
   };
 </script>
 
-  <title> | Castria的博客</title>
+  <title>LeetCode 44.数字1的个数 | Castria的博客</title>
   
 
 
@@ -170,7 +170,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          
+          LeetCode 44.数字1的个数
         </h1>
 
         <div class="post-meta">
@@ -181,7 +181,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2022-03-28 15:45:28 / 修改时间：15:51:09" itemprop="dateCreated datePublished" datetime="2022-03-28T15:45:28+08:00">2022-03-28</time>
+              <time title="创建时间：2022-03-28 16:24:11 / 修改时间：16:24:17" itemprop="dateCreated datePublished" datetime="2022-03-28T16:24:11+08:00">2022-03-28</time>
             </span>
 
           
@@ -446,6 +446,59 @@
   
 
   
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 
