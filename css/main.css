@@ -1206,7 +1206,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #f42e00;
+  background: #b4b3e4;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2203,7 +2203,7 @@ mjx-container + br {
 }
 .content {
   padding-top: 70px;
-  background: #fff;
+  background: rgba(255,255,255,0.8);
 }
 @media (max-width: 767px) {
   .content {
