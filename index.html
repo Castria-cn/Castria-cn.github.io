@@ -1,11 +1,97 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Yaoning's Homepage</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Yaoning Wang — Personal Homepage</title>
+  <meta name="description" content="Personal homepage of Yaoning Wang — NLP & Evaluation research." />
+  <style>
+    :root{--bg:#f7f9fc;--card:#ffffff;--muted:#6b7280;--accent:#2563eb}
+    *{box-sizing:border-box}
+    body{font-family:Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial; margin:0; background:var(--bg); color:#111}
+    .container{max-width:880px;margin:36px auto;padding:24px}
+    header{display:flex;gap:20px;align-items:center}
+    .avatar{width:96px;height:96px;border-radius:12px;background:linear-gradient(135deg,#e2e8f0,#fff);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--muted)}
+    h1{margin:0;font-size:28px}
+    .subtitle{color:var(--muted);margin-top:6px}
+    .card{background:var(--card);padding:18px;border-radius:12px;box-shadow:0 6px 18px rgba(20,20,40,0.06);margin-top:18px}
+    .grid{display:grid;grid-template-columns:1fr 320px;gap:18px}
+    @media (max-width:880px){.grid{grid-template-columns:1fr}}
+    .section-title{font-weight:600;margin-bottom:8px}
+    ul.pub-list{list-style:none;padding:0;margin:0}
+    ul.pub-list li{padding:10px;border-radius:8px}
+    .muted{color:var(--muted)}
+    .chip{display:inline-block;padding:6px 10px;border-radius:999px;background:#eef2ff;color:#1e3a8a;font-size:13px;margin-right:8px}
+    footer{margin-top:28px;color:var(--muted);font-size:14px}
+    a{color:var(--accent);text-decoration:none}
+    .actions{margin-top:12px}
+    .btn{display:inline-block;padding:8px 12px;border-radius:8px;border:1px solid rgba(37,99,235,0.12);background:transparent;color:var(--accent);cursor:pointer}
+    .paper-meta{font-size:13px;color:var(--muted)}
+  </style>
 </head>
 <body>
-  <h1>Hello! I'm Yaoning 👋</h1>
-  <p>Welcome to my homepage.</p>
+  <div class="container">
+    <header>
+      <img src="assets/images/icon.jpg" alt="Profile Photo" style="width:120px; height:auto; border-radius:50%;">
+      <div>
+        <h1 id="name">Yaoning Wang</h1>
+        <div class="subtitle" id="tagline">Graduate Student at Fudan University, School of Computer Science</div>
+        <div class="actions">
+          <span class="chip">NLP</span>
+          <span class="chip">Evaluation</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="grid">
+      <main>
+        <section class="card">
+          <div class="section-title">About</div>
+          <p id="about">I received my B.Sc. in Computer Science from Harbin Institute of Technology and am currently pursuing my M.Sc. in Computer Science at Fudan University. My research interests lie in Natural Language Processing and model evaluation, particularly focusing on efficient and generalizable evaluation methods for large language models.</p>
+        </section>
+
+        <section class="card" style="margin-top:14px" id="publications">
+          <div class="section-title">Paper List</div>
+          <ul class="pub-list" id="pub-list">
+            <li>
+              <div><strong class="paper-title">Effieval: Efficient and generalizable model evaluation via capability coverage maximization</strong></div>
+              <div class="paper-meta">Wang, Y., Ying, J., Cao, Y., Ma, Y., & Jiang, Y. (2025). <em>arXiv preprint arXiv:2508.09662</em>. <a href="https://arxiv.org/abs/2508.09662" target="_blank">[pdf]</a></div>
+            </li>
+
+            <li>
+              <div><strong class="paper-title">Model Utility Law: Evaluating LLMs beyond Performance through Mechanism Interpretable Metric</strong></div>
+              <div class="paper-meta">Cao, Y., Ying, J., Wang, Y., Qiu, X., Huang, X., & Jiang, Y. (2025). <em>arXiv preprint arXiv:2504.07440</em>. <a href="https://arxiv.org/abs/2504.07440" target="_blank">[pdf]</a></div>
+            </li>
+
+            <li>
+              <div><strong class="paper-title">Do LLMs Signal When They're Right? Evidence from Neuron Agreement</strong></div>
+              <div class="paper-meta">Chen, K., Wang, Y., Xiong, K., Feng, Z., Sun, W., Chen, H., & Cao, Y. (2025). <em>arXiv preprint arXiv:2510.26277</em>. <a href="https://arxiv.org/abs/2510.26277" target="_blank">[pdf]</a></div>
+            </li>
+          </ul>
+        </section>
+
+      </main>
+
+      <aside>
+        <div class="card">
+          <div class="section-title">Education</div>
+          <div id="education">
+            <p><strong>B.Sc.</strong> — <span class="muted">Harbin Institute of Technology, Computer Science</span></p>
+            <p><strong>M.Sc.</strong> — <span class="muted">Fudan University, Computer Science</span></p>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:14px">
+          <div class="section-title">Contact</div>
+          <p>Email: <a id="email" href="mailto:24210240050@m.fudan.edu.cn">24210240050@m.fudan.edu.cn</a></p>
+          <p>GitHub: <a id="github" href="https://github.com/Castria-cn" target="_blank">Castria-cn</a></p>
+        </div>
+      </aside>
+    </div>
+
+    <footer>
+      <div class="muted">© 2025 Yaoning Wang — Last updated October 2025.</div>
+    </footer>
+  </div>
 </body>
 </html>
